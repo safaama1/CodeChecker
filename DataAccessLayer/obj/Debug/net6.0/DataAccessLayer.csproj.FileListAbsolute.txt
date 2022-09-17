@@ -1,0 +1,14 @@
+C:\Projects\Code-Checker\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.deps.json
+C:\Projects\Code-Checker\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.runtimeconfig.json
+C:\Projects\Code-Checker\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.dll
+C:\Projects\Code-Checker\DataAccessLayer\bin\Debug\net6.0\DataAccessLayer.pdb
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.AssemblyReference.cache
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.AssemblyInfoInputs.cache
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.AssemblyInfo.cs
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.dll
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\refint\DataAccessLayer.dll
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.pdb
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\DataAccessLayer.genruntimeconfig.cache
+C:\Projects\Code-Checker\DataAccessLayer\obj\Debug\net6.0\ref\DataAccessLayer.dll
