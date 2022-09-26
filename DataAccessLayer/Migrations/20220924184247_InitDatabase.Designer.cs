@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(CodeCheckerDbContext))]
-    [Migration("20220917212837_init database")]
-    partial class initdatabase
+    [Migration("20220924184247_InitDatabase")]
+    partial class InitDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,8 +29,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<Guid>("CoursesCourseId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("StudentsStudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("StudentsStudentId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("CoursesCourseId", "StudentsStudentId");
 
@@ -117,9 +117,8 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Entities.Student", b =>
                 {
-                    b.Property<Guid>("StudentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -143,8 +142,8 @@ namespace DataAccessLayer.Migrations
                     b.Property<Guid>("HomeworkId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("SubmittedDate")
                         .HasColumnType("datetime2");

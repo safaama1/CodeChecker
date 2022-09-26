@@ -15,8 +15,8 @@ namespace DataAccessLayer.Entities
         public Guid? CourseId { get; set; }
         public Course Course { get; set; }
 
-        public List<SubmittedHomework>? SubmittedHomework { get; set; }
+        public virtual ICollection<SubmittedHomework> SubmittedHomework { get; set; }
 
-        public List<HomeworkRule>? HomeworkRules { get; set; }
+        public virtual ICollection<HomeworkRule> HomeworkRules { get; set; }
     }
 }

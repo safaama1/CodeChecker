@@ -10,6 +10,6 @@ namespace DataAccessLayer.Entities
         [MaxLength(256)]
         public string Name { get; set; }
 
-        public List<Course> Courses { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

@@ -17,7 +17,8 @@ namespace DataAccessLayer.Entities
         public Guid HomeworkId { get; set; }
         public Homework Homework { get; set; }
 
-        public Guid? StudentId { get; set; }
+        [ForeignKey("Student")]
+        public string? StudentId { get; set; }
         public Student? Student { get; set; }
     }
 }

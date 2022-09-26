@@ -18,9 +18,9 @@ namespace DataAccessLayer.Entities
         public Guid? TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
 
-        public List<Student>? Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
 
-        public List<Homework>? Homework { get; set; }
+        public virtual ICollection<Homework> Homework { get; set; }
 
     }
 }

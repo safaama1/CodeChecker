@@ -13,7 +13,7 @@ namespace DataAccessLayer
         public DbSet<HomeworkRule> HomeworkRules { get; set; }
 
 
-        public CodeCheckerDbContext() { }
+        public CodeCheckerDbContext(DbContextOptions<CodeCheckerDbContext> dbContextOptions) : base(dbContextOptions) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
