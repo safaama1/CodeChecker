@@ -10,6 +10,7 @@ namespace REST_API.Repositories.Interfaces
         Task<Teacher?> GetCourseTeacherAsync(Guid id);
         Task<IEnumerable<Student>?> GetCourseStudents(Guid id);
         Task<IEnumerable<Homework>?> GetAllCourseHomework(Guid id);
+        Task<IEnumerable<Course>?> GetCoursesByTeacherIdAsync(Guid id);
 
         // Post methods
         Task<Course> CreateCourseAsync(Course course);
