@@ -1,0 +1,28 @@
+﻿<Application x:Class="CodeCheckerClient.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CodeCheckerClient"
+             xmlns:viewModel="clr-namespace:CodeCheckerClient.MVVM.ViewModel"
+              xmlns:view="clr-namespace:CodeCheckerClient.MVVM.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/TextBoxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/PasswordBoxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/TextBlockTheme.xaml"/>
+                <ResourceDictionary Source="Theme/WindowButtonTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+           
+            <DataTemplate DataType="{x:Type viewModel:StarterPageViewModel}">
+                <view:StarterPageView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:LoginPageViewModel}">
+                <view:LoginPageView/>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </Application.Resources> 
+</Application>
