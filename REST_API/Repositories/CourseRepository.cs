@@ -90,6 +90,17 @@ namespace REST_API.Repositories
             else throw new KeyNotFoundException("Course not found");
         }
 
+        public async Task<IEnumerable<Course>?> GetCoursesByTeacherIdAsync(Guid id)
+        {
+            var courses = await _context.Courses
+                .Where(course => course.TeacherId == id)
+                .Include(course => course.Homework)
+                .ToListAsync()
+                .ConfigureAwait(false);
+            if (courses != null) return courses;
+            else throw new KeyNotFoundException("Course not found");
+        }
+
         public async Task UpdateCourseAsync(Course course)
         {
             var courseEntity = await _context.Courses
@@ -119,6 +130,7 @@ namespace REST_API.Repositories
                 student.Courses = new List<Course>();
                 await _context.Students.AddAsync(student).ConfigureAwait(false);
             }
+            else student = studentEntity;
             student.Courses.Add(courseEntity);
             if (courseEntity.Students == null) courseEntity.Students = new List<Student>();
             courseEntity.Students.Add(student);

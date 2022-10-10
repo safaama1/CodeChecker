@@ -9,5 +9,7 @@ namespace REST_API.Models
         [MaxLength(256)]
         [JsonProperty("name")]
         public string Name { get; set; }
+
+        public Guid? CourseId { get; set; }
     }
 }

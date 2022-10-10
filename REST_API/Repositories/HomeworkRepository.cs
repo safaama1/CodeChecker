@@ -14,12 +14,12 @@ namespace REST_API.Repositories
             _context = context;
         }
 
-        public async Task AddRuleToHomework(HomeworkRule rule, Homework homework)
+        public async Task AddRuleToHomework(HomeworkRule rule, Guid homeworkId)
         {
-            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homework.HomeworkId).FirstOrDefault();
+            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homeworkId).FirstOrDefault();
             if (homeworkEntity == null) throw new KeyNotFoundException("Homework not found");
-            rule.HomeworkId = homework.HomeworkId;
-            rule.Homework = homework;
+            rule.HomeworkId = homeworkId;
+            rule.Homework = homeworkEntity;
             homeworkEntity.HomeworkRules.Add(rule);
             var ruleEntity = _context.HomeworkRules.Where(r => r.HomeworkRuleId == rule.HomeworkRuleId).FirstOrDefault();
             if (ruleEntity == null) _context.HomeworkRules.Add(rule);
