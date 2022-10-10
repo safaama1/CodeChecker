@@ -69,7 +69,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\View\CoursePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\LoginPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\MainPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -78,6 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Theme\ButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\ComboBoxItemTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,11 +111,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\Model\UserModel.cs" />
+    <Compile Include="MVVM\ViewModel\CoursePageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginPageViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\MainPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\StarterPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
+    <Compile Include="MVVM\View\CoursePageView.xaml.cs">
+      <DependentUpon>CoursePageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\LoginPageView.xaml.cs">
       <DependentUpon>LoginPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\MainPageView.xaml.cs">
+      <DependentUpon>MainPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\StarterPageView.xaml.cs">
       <DependentUpon>StarterPageView.xaml</DependentUpon>
@@ -134,9 +155,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MVVM\Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\l1.png" />
   </ItemGroup>

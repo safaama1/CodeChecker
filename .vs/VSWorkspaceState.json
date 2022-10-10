@@ -3,6 +3,7 @@
     "",
     "\\CodeCheckerClient",
     "\\CodeCheckerClient\\MVVM",
+    "\\CodeCheckerClient\\MVVM\\Model",
     "\\CodeCheckerClient\\MVVM\\View",
     "\\CodeCheckerClient\\MVVM\\ViewModel"
   ],

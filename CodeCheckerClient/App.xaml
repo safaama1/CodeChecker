@@ -13,6 +13,8 @@
                 <ResourceDictionary Source="Theme/PasswordBoxTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TextBlockTheme.xaml"/>
                 <ResourceDictionary Source="Theme/WindowButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/ComboBoxItemTheme.xaml"/>
+
             </ResourceDictionary.MergedDictionaries>
            
             <DataTemplate DataType="{x:Type viewModel:StarterPageViewModel}">
@@ -22,7 +24,17 @@
             <DataTemplate DataType="{x:Type viewModel:LoginPageViewModel}">
                 <view:LoginPageView/>
             </DataTemplate>
-            
+
+            <DataTemplate DataType="{x:Type viewModel:MainPageViewModel}">
+                <view:MainPageView/>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type viewModel:CoursePageViewModel}">
+                <view:CoursePageView/>
+            </DataTemplate>
+
+
         </ResourceDictionary>
     </Application.Resources> 
 </Application>

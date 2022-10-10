@@ -25,3 +25,8 @@ C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\Theme\TextBo
 C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\Theme\PasswordBoxTheme.baml
 C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\Theme\TextBlockTheme.baml
 C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\Theme\WindowButtonTheme.baml
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\MainPageView.g.cs
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\MainPageView.baml
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\Theme\ComboBoxItemTheme.baml
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\CoursePageView.g.cs
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\CoursePageView.baml
