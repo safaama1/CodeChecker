@@ -1,5 +1,4 @@
-﻿using CodeCheckerClient.MVVM.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,14 +16,13 @@ using System.Windows.Shapes;
 namespace CodeCheckerClient.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for LoginPageView.xaml
+    /// Interaction logic for CoursePageView.xaml
     /// </summary>
-    public partial class LoginPageView : UserControl
+    public partial class CoursePageView : UserControl
     {
-        public LoginPageView()
+        public CoursePageView()
         {
             InitializeComponent();
         }
-
     }
 }
