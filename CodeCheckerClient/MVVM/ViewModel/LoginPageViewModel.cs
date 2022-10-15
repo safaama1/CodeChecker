@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeCheckerClient.MVVM.ViewModel;
+﻿using CodeCheckerClient.Core;
+
 namespace CodeCheckerClient.MVVM.ViewModel
 {
-    internal class LoginPageViewModel
+    internal class LoginPageViewModel : ObservableObject
     {
+
     }
 }

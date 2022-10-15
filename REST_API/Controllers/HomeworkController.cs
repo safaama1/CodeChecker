@@ -20,48 +20,20 @@ namespace REST_API.Controllers
         public async Task<ActionResult<IEnumerable<Homework>>> GetHomeworkAsync(Guid id)
         {
             var course = await _homeworkRepository.GetHomeworkAsync(id).ConfigureAwait(false);
-            if (course == null) return NotFound($"Homework found with id = {id}");
+            if (course == null) return NotFound($"Homework not found with id = {id}");
             return Ok(course);
         }
 
-        //[HttpPost("create-homework")]
-        //public async Task<ActionResult> CreateHomeworkAsync([FromBody] AddHomeworkToCourseModel addHomeworkModel)
-        //{
-        //    if (string.IsNullOrEmpty(addHomeworkModel.CourseId.ToString()))
-        //        return BadRequest("Course name is required");
-        //    var newHomeworkId = Guid.NewGuid();
-        //    await _courseRepository
-        //        .CreateCourseAsync(new Course { CourseId = newCourseId, Name = course.Name, AcademicYear = course.AcademicYear })
-        //        .ConfigureAwait(false); ;
-        //    return Accepted();
-        //}
-
-        //[HttpPost("create-rule")]
-        //public async Task<ActionResult> CreateHomeworkRuleAsync([FromBody] AddHomeworkRuleModel addHomeworkRuleModel)
-        //{
-        //    if (string.IsNullOrEmpty(course.Name))
-        //        return BadRequest("Course name is required");
-        //    var newCourseId = Guid.NewGuid();
-        //    await _courseRepository
-        //        .CreateCourseAsync(new Course { CourseId = newCourseId, Name = course.Name, AcademicYear = course.AcademicYear })
-        //        .ConfigureAwait(false); ;
-        //    return Accepted();
-        //}
-
-        //[HttpPost("create-submitted")]
-        //public async Task<ActionResult> CreateSubmittedHomeworkAsync([FromBody] AddSubmittedHomeworkModel addSubmittedHomeworkModel)
-        //{
-        //    if (string.IsNullOrEmpty(course.Name))
-        //        return BadRequest("Course name is required");
-        //    var newCourseId = Guid.NewGuid();
-        //    await _courseRepository
-        //        .CreateCourseAsync(new Course { CourseId = newCourseId, Name = course.Name, AcademicYear = course.AcademicYear })
-        //        .ConfigureAwait(false); ;
-        //    return Accepted();
-        //}
+        [HttpPost("create")]
+        public async Task<ActionResult<IEnumerable<Homework>>> CreateHomeworkAsync(AddHomeworkToCourseModel model)
+        {
+            var hwId = new Guid();
+            var course = await _homeworkRepository.CreateHomeworkAsync(new Homework { HomeworkId = hwId, Name = model.Name, CourseId = model.CourseId }).ConfigureAwait(false);
+            return Ok(course);
+        }
 
         [HttpPut("{id}/add-rule")]
-        public async Task<ActionResult> AddRuleToHomeworkAsync(Guid id, AddRuleToHomeworkModel addRuleToHomework)
+        public async Task<ActionResult> AddRuleToHomeworkAsync(Guid id, [FromBody] AddRuleToHomeworkModel addRuleToHomework)
         {
             var rule = new HomeworkRule
             {
@@ -79,6 +51,58 @@ namespace REST_API.Controllers
             {
                 return BadRequest(ex);
             }
+        }
+
+        [HttpPut("{id}/submitted-homework/{sId}/update-grade")]
+        public async Task<ActionResult> UpdateSubmittedHomework(Guid id, Guid sId, UpdateSubmittedHomeworkGrade homeworkGrade)
+        {
+            try
+            {
+                var course = await _homeworkRepository.GetHomeworkAsync(id).ConfigureAwait(false);
+                if (course == null) return NotFound($"Homework not found with id = {id}");
+
+                await _homeworkRepository.UpdateSubmittedHomeworkGradeAsync(sId, homeworkGrade.Grade).ConfigureAwait(false);
+                return Accepted();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPut("{id}/add-submitted-homework")]
+        public async Task<ActionResult> AddSubmitToHomeworkAsync(Guid id, AddSubmittedHomeworkModel addSubmittedHomework)
+        {
+            if (string.IsNullOrEmpty(addSubmittedHomework.StudentId))
+                return BadRequest("The student ID that submitted the homework is required");
+            var submitted = new SubmittedHomework
+            {
+                SubmittedHomeworkId = new Guid(),
+                SubmittedDate = addSubmittedHomework.SubmittedDate,
+            };
+            try
+            {
+                await _homeworkRepository.AddNewSubmitToHomework(submitted, id, addSubmittedHomework.StudentId).ConfigureAwait(false);
+                return Accepted();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteHomeworkAsync(Guid id)
+        {
+            try
+            {
+                await _homeworkRepository.DeleteHomeworkAsync(id).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Accepted();
         }
 
     }

@@ -16,13 +16,32 @@ namespace REST_API.Repositories
 
         public async Task AddRuleToHomework(HomeworkRule rule, Guid homeworkId)
         {
-            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homeworkId).FirstOrDefault();
+            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homeworkId).Include(h => h.HomeworkRules).FirstOrDefault();
             if (homeworkEntity == null) throw new KeyNotFoundException("Homework not found");
             rule.HomeworkId = homeworkId;
             rule.Homework = homeworkEntity;
             homeworkEntity.HomeworkRules.Add(rule);
             var ruleEntity = _context.HomeworkRules.Where(r => r.HomeworkRuleId == rule.HomeworkRuleId).FirstOrDefault();
             if (ruleEntity == null) _context.HomeworkRules.Add(rule);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task AddNewSubmitToHomework(SubmittedHomework submitted, Guid homeworkId, string studentId)
+        {
+            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homeworkId).FirstOrDefault();
+            if (homeworkEntity == null) throw new KeyNotFoundException("Homework not found");
+            var studentEntity = _context.Students.Where(s => s.StudentId == studentId).FirstOrDefault();
+            if (studentEntity == null) throw new KeyNotFoundException("Student not found");
+            // update the submitted homework connected entities 
+            submitted.HomeworkId = homeworkId;
+            submitted.Homework = homeworkEntity;
+            submitted.StudentId = studentId;
+            submitted.Student = studentEntity;
+            // add the submitted homework to the student & homework enitities 
+            homeworkEntity.SubmittedHomework.Add(submitted);
+            studentEntity.SubmittedHomework.Add(submitted);
+            var submittedEntity = _context.HomeworkRules.Where(r => r.HomeworkRuleId == submitted.SubmittedHomeworkId).FirstOrDefault();
+            if (submittedEntity == null) _context.SubmittedHomework.Add(submitted);
             await _context.SaveChangesAsync().ConfigureAwait(false);
         }
 
@@ -164,6 +183,18 @@ namespace REST_API.Repositories
             if (submittedHomeworkEntity == null)
                 throw new KeyNotFoundException("Submitted homework not found");
             _context.Entry(submittedHomework).State = EntityState.Modified;
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+        }
+
+        public async Task UpdateSubmittedHomeworkGradeAsync(Guid submittedHomeworkId, double newGrade)
+        {
+            var submittedHomeworkEntity = await _context.SubmittedHomework
+                .Where(s => s.SubmittedHomeworkId == submittedHomeworkId)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+            if (submittedHomeworkEntity == null)
+                throw new KeyNotFoundException("Submitted homework not found");
+            submittedHomeworkEntity.Grade = newGrade;
             await _context.SaveChangesAsync().ConfigureAwait(false);
         }
     }

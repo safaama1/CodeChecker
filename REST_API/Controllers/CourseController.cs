@@ -10,10 +10,12 @@ namespace REST_API.Controllers
     public class CourseController : ControllerBase
     {
         private readonly ICourseRepository _courseRepository;
+        private readonly ITeacherRepository _teacherRepository;
 
-        public CourseController(ICourseRepository courseRepository)
+        public CourseController(ICourseRepository courseRepository, ITeacherRepository teacherRepository)
         {
             _courseRepository = courseRepository;
+            _teacherRepository = teacherRepository;
         }
 
         [HttpGet("all")]
@@ -35,11 +37,30 @@ namespace REST_API.Controllers
         {
             if (string.IsNullOrEmpty(course.Name))
                 return BadRequest("Course name is required");
-            var newCourseId = Guid.NewGuid();
-            await _courseRepository
-                .CreateCourseAsync(new Course { CourseId = newCourseId, Name = course.Name, AcademicYear = course.AcademicYear })
-                .ConfigureAwait(false); ;
-            return Accepted();
+            if (string.IsNullOrEmpty(course.TeacherID.ToString()))
+                return BadRequest("Teacher ID is required");
+            try
+            {
+                var teacherEntity = await _teacherRepository.GetTeacherAsync(course.TeacherID).ConfigureAwait(false);
+                var newCourseId = Guid.NewGuid();
+                await _courseRepository
+                    .CreateCourseAsync(new Course
+                    {
+                        CourseId = newCourseId,
+                        Name = course.Name,
+                        AcademicYear = course.AcademicYear,
+                        TeacherId = teacherEntity.TeacherId,
+                        Teacher = teacherEntity
+                    })
+                    .ConfigureAwait(false); ;
+                return Accepted();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+
         }
 
 

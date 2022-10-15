@@ -2,7 +2,7 @@
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
-    class MainViewModel :ObservableObject
+    class MainViewModel : ObservableObject
     {
         public RelayCommand StarterPageViewCommand { get; set; }
 

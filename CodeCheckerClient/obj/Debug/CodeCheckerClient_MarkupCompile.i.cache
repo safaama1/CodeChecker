@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\
+C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\
 CodeCheckerClient
 none
 false
 DEBUG;TRACE
-C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\App.xaml
+C:\Projects\Code-Checker\CodeCheckerClient\App.xaml
 8-1925390147
 
-13-855641450
-13-1310406943
+16398374212
+125825850713
 MainWindow.xaml;MVVM\View\LoginPageView.xaml;MVVM\View\StarterPageView.xaml;Theme\ButtonTheme.xaml;Theme\PasswordBoxTheme.xaml;Theme\TextBlockTheme.xaml;Theme\TextBoxTheme.xaml;Theme\WindowButtonTheme.xaml;
 
-True
+False
 

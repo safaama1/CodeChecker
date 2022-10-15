@@ -13,5 +13,10 @@ namespace REST_API.Models
         [JsonProperty("academicYear")]
         public string AcademicYear { get; set; }
 
+        [Required]
+        [MaxLength(256)]
+        [JsonProperty("teacherId ")]
+        public string TeacherID { get; set; }
+
     }
 }

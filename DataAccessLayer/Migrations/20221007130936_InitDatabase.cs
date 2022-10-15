@@ -25,7 +25,7 @@ namespace DataAccessLayer.Migrations
                 name: "Teachers",
                 columns: table => new
                 {
-                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeacherId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false)
                 },
                 constraints: table =>
@@ -40,7 +40,7 @@ namespace DataAccessLayer.Migrations
                     CourseId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     AcademicYear = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    TeacherId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {

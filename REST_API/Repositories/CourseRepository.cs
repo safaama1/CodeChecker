@@ -33,7 +33,7 @@ namespace REST_API.Repositories
 
         }
 
-        public async Task<IEnumerable<Homework>?> GetAllCourseHomework(Guid id)
+        public async Task<IEnumerable<Homework>?> GetCourseHomeworkAsync(Guid id)
         {
             var course = await _context.Courses
                 .Where(course => course.CourseId == id)
@@ -42,6 +42,28 @@ namespace REST_API.Repositories
                 .ConfigureAwait(false);
             if (course != null) return course.Homework;
             else throw new KeyNotFoundException("Course not found");
+        }
+
+        public async Task<IEnumerable<Course>?> GetAllCoursesByStudentIdAsync(string id)
+        {
+            var studentEntity = await _context.Students
+                .Where(s => s.StudentId == id)
+                .Include(s => s.Courses)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+            if (studentEntity != null) return studentEntity.Courses;
+            else throw new KeyNotFoundException("Student not found");
+        }
+
+        public async Task<IEnumerable<Course>?> GetAllCoursesByTeacherIdAsync(string id)
+        {
+            var teacherEntity = await _context.Teachers
+                .Where(t => t.TeacherId == id)
+                .Include(t => t.Courses)
+                .FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+            if (teacherEntity != null) return teacherEntity.Courses;
+            else throw new KeyNotFoundException("Teacher not found");
         }
 
         public async Task<IEnumerable<Course>?> GetAllCoursesAsync()
@@ -67,7 +89,7 @@ namespace REST_API.Repositories
             else throw new KeyNotFoundException("Course not found");
         }
 
-        public async Task<IEnumerable<Student>?> GetCourseStudents(Guid id)
+        public async Task<IEnumerable<Student>?> GetCourseStudentsAsync(Guid id)
         {
             var course = await _context.Courses
                 .Where(course => course.CourseId == id)
@@ -87,17 +109,6 @@ namespace REST_API.Repositories
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
             if (course != null) return course.Teacher;
-            else throw new KeyNotFoundException("Course not found");
-        }
-
-        public async Task<IEnumerable<Course>?> GetCoursesByTeacherIdAsync(Guid id)
-        {
-            var courses = await _context.Courses
-                .Where(course => course.TeacherId == id)
-                .Include(course => course.Homework)
-                .ToListAsync()
-                .ConfigureAwait(false);
-            if (courses != null) return courses;
             else throw new KeyNotFoundException("Course not found");
         }
 
