@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,6 +71,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVM\View\CoursePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\HomeWorkPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -113,12 +118,16 @@
   <ItemGroup>
     <Compile Include="MVVM\Model\UserModel.cs" />
     <Compile Include="MVVM\ViewModel\CoursePageViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\HomeWorkPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\LoginPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\StarterPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainViewModel.cs" />
     <Compile Include="MVVM\View\CoursePageView.xaml.cs">
       <DependentUpon>CoursePageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\HomeWorkPageView.xaml.cs">
+      <DependentUpon>HomeWorkPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\LoginPageView.xaml.cs">
       <DependentUpon>LoginPageView.xaml</DependentUpon>
@@ -155,7 +164,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\pdfLogo.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\l1.png" />
   </ItemGroup>

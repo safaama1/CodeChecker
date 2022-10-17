@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="CodeCheckerClient.MVVM.View.HomeWorkPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeCheckerClient.MVVM.View"
+             mc:Ignorable="d" 
+                    xmlns:viewModel="clr-namespace:CodeCheckerClient.MVVM.ViewModel"
+             d:DesignHeight="600" d:DesignWidth="800" >
+    <UserControl.DataContext>
+        <viewModel:HomeWorkPageViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Converter" />
+        <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Background" Value="#505050"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RepeatButton}">
+                        <Border Background="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}" CornerRadius="10"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <!--<Setter Property="Margin" Value="3"/>-->
+
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border x:Name="rectangle" Background="Black" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}" CornerRadius="10"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="rectangle" Value="Black"/>
+                            </Trigger>
+                            <Trigger Property="IsDragging" Value="true">
+                                <Setter Property="Background" TargetName="rectangle" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border CornerRadius="0,0,10,10" Background="#353238"  >
+
+        <Grid >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="300"/>
+                <RowDefinition Height="95"/>
+
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="0" Grid.Row="0" Command="{Binding GoBackCommand}" 
+                FontFamily="Segoe UI Symbol" Content="&#xE112;"  RenderTransformOrigin="0.512,0.522" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="#00916E">
+            </Button>
+            <TextBlock Text="{Binding DueDate,StringFormat=' due date : {0}'}"
+                   Foreground="#FFFCF9"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontSize="30"
+                   Grid.Column="1"
+                       Grid.Row="2"
+                       Style="{StaticResource TextBlockTheme}" Height="60" />
+
+            <TextBlock Text="{Binding Grade,FallbackValue='?', StringFormat=' {0} / 100 '}" 
+                   Foreground="#FFFCF9"
+                       VerticalAlignment="Top" HorizontalAlignment="Center"
+                   FontSize="30"
+                   Grid.Column="1"
+                       Grid.Row="3"
+                       Style="{StaticResource TextBlockTheme}" Height="137" />
+
+            <Grid Grid.Row="1" Grid.Column="1" Background="Transparent" HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+
+                </Grid.RowDefinitions>
+                <TextBox BorderThickness="0" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Background="Transparent" Foreground="#EE6123" FontFamily="Segoe UI Symbol" Text="&#xE1FD;"/>
+
+
+                <TextBlock Grid.Column="1" Style="{StaticResource TextBlockTheme}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Center">
+                 
+                                 <Hyperlink  TextDecorations="" Foreground="White" NavigateUri="http://designer.cooltext.com/Setup.zip" >cpp_hw1.pdf
+                </Hyperlink>
+                </TextBlock>
+            </Grid>
+
+
+            <!--<TextBlock><Hyperlink NavigateUri="http://designer.cooltext.com/Setup.zip" RequestNavigate="saveToWebService">Lame Xbap Save</Hyperlink></TextBlock>
+            -->
+
+
+            <ListBox
+        ItemsSource="{Binding Uploaded}" 
+        ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="3" Margin="10,76,10,10"
+          SelectedItem="{Binding SUploaded}" Grid.Column="1"
+        >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Vertical"  />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                    <Style TargetType="{x:Type ScrollBar}">
+                        <Setter Property="Background" Value="#505050"/>
+                        <Setter Property="BorderBrush" Value="#505050"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" Background="{TemplateBinding Background}" Grid.Row="1" CornerRadius="8"/>
+                                        <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton Command="{x:Static ScrollBar.PageUpCommand}" Style="{StaticResource RepeatButtonTransparent}" HorizontalAlignment="Left" Width="17"/>
+                                            </Track.DecreaseRepeatButton>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton Command="{x:Static ScrollBar.PageDownCommand}" Style="{StaticResource RepeatButtonTransparent}"/>
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.Thumb>
+                                                <Thumb Style="{StaticResource ScrollBarThumbVertical}" Margin="2"/>
+                                            </Track.Thumb>
+                                        </Track>
+                                    </Grid>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+
+            <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="4" Margin="70,10,70,10"  Command="{Binding UploadHomeWork}">
+                Upload
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>

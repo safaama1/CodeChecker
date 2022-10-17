@@ -96,8 +96,11 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 YearSet.Add(item.Item2);
             }
             _years = new ObservableCollection<string>(YearSet);
-            Syears = Years.Last<string>();
 
+            if (UserModel.Instance.CurrentlyShownYear == null)
+                Syears = Years.Last<string>();
+            else
+                Syears = UserModel.Instance.CurrentlyShownYear;
 
 
 

@@ -14,13 +14,15 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
         public RelayCommand CoursePageViewCommand { get; set; }
 
-
+        public RelayCommand HomeWorkPageViewCommand { get; set; }
 
 
         public StarterPageViewModel StarterPageVM { get; set; }
         public LoginPageViewModel LoginPageVM { get; set; }
         public MainPageViewModel MainPageVM { get; set; }
         public CoursePageViewModel CoursePageVm { get; set; }
+
+        public HomeWorkPageViewModel HomeWorkPageVM { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -48,6 +50,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 LoginPageVM = new LoginPageViewModel();
                 MainPageVM = new MainPageViewModel();
                 CoursePageVm = new CoursePageViewModel();
+                HomeWorkPageVM = new HomeWorkPageViewModel();
 
                 _currentView = StarterPageVM;
 
@@ -69,6 +72,10 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 CoursePageViewCommand = new RelayCommand(o =>
                 {
                     CurrentView = CoursePageVm;
+                });
+
+                HomeWorkPageViewCommand = new RelayCommand(o => { 
+                CurrentView = HomeWorkPageVM;
                 });
 
                 instance = this;

@@ -31,6 +31,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
             if (CheckLogin(UserName) == true)
             {
                     UserModel.Instance.Id = UserName;
+                    UserModel.Instance.IsALecturer = false;
                     
                     MainViewModel.Instance().CurrentView = new MainPageViewModel();
             }

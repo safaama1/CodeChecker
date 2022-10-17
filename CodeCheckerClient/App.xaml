@@ -34,6 +34,9 @@
                 <view:CoursePageView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:HomeWorkPageViewModel}">
+                <view:HomeWorkPageView/>
+            </DataTemplate>
 
         </ResourceDictionary>
     </Application.Resources> 

@@ -11,6 +11,12 @@ namespace CodeCheckerClient.MVVM.Model
         private string _id;
         private string _course;
         private string _year;
+        private bool _IsALecturer;
+        private string _hwname;
+
+        public string Hwname { get { return _hwname; } set { _hwname = value; } }
+
+        public bool IsALecturer { get { return _IsALecturer; } set { _IsALecturer = value; } }
         public string Id { get { return _id; } set { _id = value; } }
 
         public string CurrentlyShownCourse { get { return _course; } set { _course = value; } }
