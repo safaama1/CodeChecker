@@ -20,7 +20,9 @@ namespace REST_API.Repositories.Interfaces
         Task UpdateHomeworkAsync(Homework homework);
         Task UpdateHomeworkRuleAsync(HomeworkRule rule);
         Task UpdateSubmittedHomeworkAsync(SubmittedHomework submittedHomework);
+        Task UpdateSubmittedHomeworkGradeAsync(Guid submittedHomeworkId, double newGrade);
         Task AddRuleToHomework(HomeworkRule rule, Guid homeworkId);
+        Task AddNewSubmitToHomework(SubmittedHomework submitted, Guid homeworkId, string studentId);
 
         // Delete methods
         Task DeleteHomeworkAsync(Guid id);

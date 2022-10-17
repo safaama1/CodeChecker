@@ -15,7 +15,7 @@ namespace DataAccessLayer.Entities
         public string AcademicYear { get; set; }
 
         [ForeignKey("Teacher")]
-        public Guid? TeacherId { get; set; }
+        public string? TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
 
         public virtual ICollection<Student> Students { get; set; }

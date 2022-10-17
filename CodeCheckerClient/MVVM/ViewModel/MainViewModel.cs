@@ -2,7 +2,7 @@
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
-    class MainViewModel :ObservableObject
+    class MainViewModel : ObservableObject
     {
         private static MainViewModel instance = null;
 
