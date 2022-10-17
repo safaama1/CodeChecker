@@ -1,6 +1,12 @@
-﻿using CodeCheckerClient.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CodeCheckerClient.Core;
+using CodeCheckerClient.MVVM.ViewModel;
 using CodeCheckerClient.MVVM.Model;
-
 namespace CodeCheckerClient.MVVM.ViewModel
 {
     internal class LoginPageViewModel : ObservableObject
@@ -12,7 +18,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
         {
             get { return this._userName; }
             set
-            {
+            {   
                 this._userName = value;
                 OnPropertyChanged();
             }
@@ -22,16 +28,17 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
             LogInCommand = new RelayCommand(o =>
             {
-                if (CheckLogin(UserName) == true)
-                {
+            if (CheckLogin(UserName) == true)
+            {
                     UserModel.Instance.Id = UserName;
-
+                    UserModel.Instance.IsALecturer = false;
+                    
                     MainViewModel.Instance().CurrentView = new MainPageViewModel();
-                }
+            }
 
             });
         }
-
+        
         private bool CheckIfUserIdExsists(string name)
         {
             if (string.IsNullOrEmpty(name)) return false;
