@@ -14,7 +14,7 @@ namespace CodeCheckerClient.Services
         /// </summary>  
         /// <param name="url"></param>  
         /// <returns></returns>  
-        public static Task<HttpResponseMessage> GetCall(string url)
+        public static Task<HttpResponseMessage> GetCallAsync(string url)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace CodeCheckerClient.Services
         /// <param name="url"></param>  
         /// <param name="model"></param>  
         /// <returns></returns>  
-        public static Task<HttpResponseMessage> PostCall<T>(string url, T model) where T : class
+        public static Task<HttpResponseMessage> PostCallAsync<T>(string url, T model) where T : class
         {
             try
             {
@@ -78,7 +78,7 @@ namespace CodeCheckerClient.Services
         /// <param name="url"></param>  
         /// <param name="model"></param>  
         /// <returns></returns>  
-        public static Task<HttpResponseMessage> PutCall<T>(string url, T model) where T : class
+        public static Task<HttpResponseMessage> PutCallAsync<T>(string url, T model) where T : class
         {
             try
             {
@@ -106,7 +106,7 @@ namespace CodeCheckerClient.Services
         /// </summary>  
         /// <param name="url"></param>  
         /// <returns></returns>  
-        public static Task<HttpResponseMessage> DeleteCall(string url)
+        public static Task<HttpResponseMessage> DeleteCallAsync(string url)
         {
             try
             {

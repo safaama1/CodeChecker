@@ -1,5 +1,4 @@
-﻿using CodeCheckerClient.MVVM.ViewModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace CodeCheckerClient
@@ -12,8 +11,6 @@ namespace CodeCheckerClient
         public MainWindow()
         {
             InitializeComponent();
-
-            DataContext = new MainViewModel();
         }
 
         //makes the window movable since window style was set to None
