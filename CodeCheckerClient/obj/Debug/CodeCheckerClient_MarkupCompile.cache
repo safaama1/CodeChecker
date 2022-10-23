@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Projects\Code-Checker\CodeCheckerClient\App.xaml
-11-1944506461
+12-1382233347
 
-20-860778331
-125825850713
-MainWindow.xaml;MVVM\View\CoursePageView.xaml;MVVM\View\LoginPageView.xaml;MVVM\View\MainPageView.xaml;MVVM\View\StarterPageView.xaml;Theme\ButtonTheme.xaml;Theme\ComboBoxItemTheme.xaml;Theme\PasswordBoxTheme.xaml;Theme\TextBlockTheme.xaml;Theme\TextBoxTheme.xaml;Theme\WindowButtonTheme.xaml;
+28-1611988485
+133837050459
+MainWindow.xaml;MVVM\View\CoursePageView.xaml;MVVM\View\HomeWorkPageView.xaml;MVVM\View\LoginPageView.xaml;MVVM\View\MainPageView.xaml;MVVM\View\StarterPageView.xaml;Theme\ButtonTheme.xaml;Theme\ComboBoxItemTheme.xaml;Theme\PasswordBoxTheme.xaml;Theme\TextBlockTheme.xaml;Theme\TextBoxTheme.xaml;Theme\WindowButtonTheme.xaml;
 
-False
+True
 

@@ -1,112 +1,54 @@
 ﻿using CodeCheckerClient.Core;
+using CodeCheckerClient.MVVM.Model;
+using CodeCheckerClient.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeCheckerClient.MVVM.Model;
+using System.Net.Http;
+
 namespace CodeCheckerClient.MVVM.ViewModel
 {
     internal class MainPageViewModel : ObservableObject
     {
         public MainPageViewModel()
         {
-
-            AllCourses = new Tuple<string, string>[70] {
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022"),
-                 new Tuple<string, string>("חדוא 1","2019"),
-                  new Tuple<string, string>("חדוא 2","2020"),
-                   new Tuple<string, string>("מבוא לתכנות מערכות","2020"),
-                    new Tuple<string, string>("אלוגרתמים 1","2021"),
-                   new Tuple<string, string>("אלגורתמים 2","2021"),
-                   new Tuple<string, string>("מבני נתונים","2022"),
-             new Tuple<string, string>("אלגברה ליניארית","2022")
-            };
-
-
-      
-            HashSet<string> YearSet = new HashSet<string>();
-
-            foreach (Tuple<string,string> item in _allCourses)
+            if (!string.IsNullOrEmpty(UserModel.Instance.Id))
             {
-                YearSet.Add(item.Item2);
-            }
-            _years = new ObservableCollection<string>(YearSet);
 
-            if (UserModel.Instance.CurrentlyShownYear == null)
-                Syears = Years.Last<string>();
-            else
-                Syears = UserModel.Instance.CurrentlyShownYear;
+                if (UserModel.Instance.IsALecturer)
+                {
+                    var teacherDetails = REST_API.GetCallAsync($"Teacher/{UserModel.Instance.Id}");
+                    var teacherCourses = teacherDetails.Result.Content.ReadAsAsync<TeacherModel>().Result.Courses;
+                    AllCourses = teacherCourses.ToArray();
+                }
+                else
+                {
+                    var studentDetails = REST_API.GetCallAsync($"Student/{UserModel.Instance.Id}");
+                    var studentCourses = studentDetails.Result.Content.ReadAsAsync<StudentModel>().Result.Courses;
+                    AllCourses = studentCourses.ToArray();
+                }
+                HashSet<string> YearSet = new HashSet<string>();
+
+                foreach (CourseModel course in _allCourses)
+                {
+                    YearSet.Add(course.AcademicYear);
+                }
+                _years = new ObservableCollection<string>(YearSet);
+
+                if (UserModel.Instance.CurrentlyShownYear == null)
+                    Syears = Years.Last<string>();
+                else
+                    Syears = UserModel.Instance.CurrentlyShownYear;
+            }
+
 
 
 
         }
-        public Tuple<string, string>[] _allCourses;
-        public Tuple<string, string>[] AllCourses { get { return this._allCourses; } set { this._allCourses = value; } }
+        public CourseModel[] _allCourses;
+        public CourseModel[] AllCourses { get { return this._allCourses; } set { this._allCourses = value; } }
 
 
         public string[] _shownCourses;
@@ -124,8 +66,16 @@ namespace CodeCheckerClient.MVVM.ViewModel
         public String Syears
         {
             get { return _syears; }
-            set { _syears = value;
+            set
+            {
+                _syears = value;
                 UserModel.Instance.CurrentlyShownYear = value;
+                string folderName = $@"C:\{UserModel.Instance.CurrentlyShownYear}";
+                // If directory does not exist, create it
+                if (!Directory.Exists(folderName))
+                {
+                    Directory.CreateDirectory(folderName);
+                }
                 ModifyCourseList();
             }
         }
@@ -136,8 +86,8 @@ namespace CodeCheckerClient.MVVM.ViewModel
             set
             {
                 _scourse = value;
-                UserModel.Instance.CurrentlyShownCourse = value;
-                
+                UserModel.Instance.CurrentlyShownCourse = AllCourses.Where(c => c.Name == value).FirstOrDefault();
+
                 MainViewModel.Instance().CurrentView = new CoursePageViewModel();
             }
         }
@@ -146,17 +96,17 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
             List<string> CourseList = new List<string>();
 
-            foreach (Tuple<string, string> item in _allCourses)
+            foreach (CourseModel item in _allCourses)
             {
 
-                if (item.Item2.Equals(Syears))
+                if (item.AcademicYear.Equals(Syears))
                 {
-                    CourseList.Add(item.Item1);
+                    CourseList.Add(item.Name);
 
                 }
             }
             ShownCourses = CourseList.ToArray();
-       
+
         }
     }
 }

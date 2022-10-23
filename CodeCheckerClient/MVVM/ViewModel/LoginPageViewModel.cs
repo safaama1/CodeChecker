@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeCheckerClient.Core;
-using CodeCheckerClient.MVVM.ViewModel;
+﻿using CodeCheckerClient.Core;
 using CodeCheckerClient.MVVM.Model;
+using CodeCheckerClient.Services;
+
 namespace CodeCheckerClient.MVVM.ViewModel
 {
     internal class LoginPageViewModel : ObservableObject
     {
-        private string _userName;
         public RelayCommand LogInCommand { get; set; }
 
-        public string UserName
+        private string _userId;
+        public string UserId
         {
-            get { return this._userName; }
+            get { return this._userId; }
             set
-            {   
-                this._userName = value;
+            {
+                this._userId = value;
                 OnPropertyChanged();
             }
         }
@@ -28,34 +23,37 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
             LogInCommand = new RelayCommand(o =>
             {
-            if (CheckLogin(UserName) == true)
-            {
-                    UserModel.Instance.Id = UserName;
-                    UserModel.Instance.IsALecturer = false;
-                    
-                    MainViewModel.Instance().CurrentView = new MainPageViewModel();
-            }
-
+                CheckLoginAndNavigateIfExists(UserId);
             });
         }
-        
-        private bool CheckIfUserIdExsists(string name)
+
+        private bool CheckLoginAndNavigateIfExists(string id)
         {
-            if (string.IsNullOrEmpty(name)) return false;
+            if (string.IsNullOrEmpty(id)) return false;
+
+            // check if there is a student/ teacher with the given id 
+            var studentDetails = REST_API.GetCallAsync($"Student/{id}");
+            var teacherDetails = REST_API.GetCallAsync($"Teacher/{id}");
 
 
-            if (name.Equals("sss")) return true;
-            if (name.Equals("aaa")) return true;
+            if (teacherDetails.Result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                UserModel.Instance.Id = id;
+                UserModel.Instance.IsALecturer = true;
+                MainViewModel.Instance().CurrentView = new MainPageViewModel();
+                return true;
+            }
+            if (studentDetails.Result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                UserModel.Instance.Id = id;
+                UserModel.Instance.IsALecturer = false;
+                MainViewModel.Instance().CurrentView = new MainPageViewModel();
+
+            }
             return false;
         }
 
-        private bool CheckLogin(string name)
-        {
-            if (string.IsNullOrEmpty(name) || CheckIfUserIdExsists(name) == false)
-                return false;
 
-            return true;
-        }
     }
 
 }

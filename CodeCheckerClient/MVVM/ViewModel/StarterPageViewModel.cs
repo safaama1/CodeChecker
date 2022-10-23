@@ -1,5 +1,4 @@
 ﻿using CodeCheckerClient.Core;
-using CodeCheckerClient.Services;
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
@@ -7,8 +6,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
     {
         public StarterPageViewModel()
         {
-            var coursesDetails = REST_API.GetCallAsync("Course/all");
-            //var courses = coursesDetails.Result.Content.ReadAsAsync<IEnumerable<Course>>().Result;
+
         }
     }
 }

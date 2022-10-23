@@ -1,15 +1,14 @@
 ﻿using CodeCheckerClient.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CodeCheckerClient.MVVM.Model;
+using CodeCheckerClient.Services;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
-    internal class CoursePageViewModel: ObservableObject
+    internal class CoursePageViewModel : ObservableObject
     {
         public RelayCommand GoBackCommand { get; set; }
 
@@ -27,63 +26,67 @@ namespace CodeCheckerClient.MVVM.ViewModel
         public string[] HomeWorks { get { return this._homeworks; } set { this._homeworks = value; } }
 
         public string _Shomework;
-        public string SHomeWork { get { return this._Shomework; } set {
+        public string SHomeWork
+        {
+            get { return this._Shomework; }
+            set
+            {
                 Trace.WriteLine("" + value);
-                UserModel.Instance.Hwname=value;
+                UserModel.Instance.Hwname = value;
                 this._Shomework = value;
-                if (UserModel.Instance.IsALecturer==true)
+                if (UserModel.Instance.IsALecturer == true)
                 {
+                    UserModel.Instance.CurrentlyShownHomeWork = UserModel.Instance.CurrentlyShownCourse.Homework.Where(h => h.Name == value).FirstOrDefault();
+                    MainViewModel.Instance().CurrentView = new HomeWorkPageViewModel();
 
                 }
                 else
                 {
-                    MainViewModel.Instance().CurrentView = new HomeWorkPageViewModel();
                 }
-                 } }
+            }
+        }
 
 
         public CoursePageViewModel()
         {
             GoBackCommand = new RelayCommand(o =>
             {
-                    MainViewModel.Instance().CurrentView = new MainPageViewModel();
+                MainViewModel.Instance().CurrentView = new MainPageViewModel();
             });
+            if (UserModel.Instance.CurrentlyShownCourse != null)
+            {
+                string folderName = $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}";
+                // If directory does not exist, create it
+                if (!Directory.Exists(folderName))
+                {
+                    Directory.CreateDirectory(folderName);
+                }
 
-            CourseName = UserModel.Instance.CurrentlyShownCourse;
-            Year = UserModel.Instance.CurrentlyShownYear;
-            IsALecturer = UserModel.Instance.IsALecturer;
+                CourseName = UserModel.Instance.CurrentlyShownCourse.Name;
+                Year = UserModel.Instance.CurrentlyShownYear;
+                IsALecturer = UserModel.Instance.IsALecturer;
 
-            HomeWorks = new string[30] {
-                 "homework1",
-                 "homework2",
-                 "homework3",
-                 "homework4",
-                 "homework5",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1" ,
-                "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1" ,
-                "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1",
-                 "homework1" };
+                var response = REST_API.GetCallAsync($"Course/{UserModel.Instance.CurrentlyShownCourse.CourseId}");
+
+                if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    var courseDetails = response.Result.Content.ReadAsAsync<CourseModel>().Result;
+                    UserModel.Instance.CurrentlyShownCourse = courseDetails;
+                    var couresHomeworks = courseDetails.Homework;
+                    HomeWorks = couresHomeworks.Select(h => h.Name).ToArray();
+                    foreach (var homework in HomeWorks)
+                    {
+                        folderName = $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\{homework}";
+                        // If directory does not exist, create it
+                        if (!Directory.Exists(folderName))
+                        {
+                            Directory.CreateDirectory(folderName);
+                        }
+                    }
+                }
+            }
+
+
 
         }
     }

@@ -48,7 +48,7 @@
                    Style="{StaticResource TextBlockTheme}"
                    Height="30" Width="300"
                    RenderTransformOrigin="0.471,0.5" />
-                <TextBox  Text="{Binding UserName}" Style="{StaticResource TextBoxTheme}" Grid.Row="2" Grid.Column="1"  Margin="70,10,70,10" />
+                <TextBox  Text="{Binding UserId}" Style="{StaticResource TextBoxTheme}" Grid.Row="2" Grid.Column="1"  Margin="70,10,70,10" />
                 <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="3" Margin="70,10,70,10"  Command="{Binding LogInCommand}">
                     Login
                 </Button>

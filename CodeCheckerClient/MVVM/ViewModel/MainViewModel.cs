@@ -32,15 +32,15 @@ namespace CodeCheckerClient.MVVM.ViewModel
         }
 
         public static MainViewModel Instance()
-    {
-   
+        {
+
             if (instance == null)
             {
                 instance = new MainViewModel();
             }
             return instance;
-        
-    }
+
+        }
 
         public MainViewModel()
         {
@@ -74,14 +74,15 @@ namespace CodeCheckerClient.MVVM.ViewModel
                     CurrentView = CoursePageVm;
                 });
 
-                HomeWorkPageViewCommand = new RelayCommand(o => { 
-                CurrentView = HomeWorkPageVM;
+                HomeWorkPageViewCommand = new RelayCommand(o =>
+                {
+                    CurrentView = HomeWorkPageVM;
                 });
 
                 instance = this;
             }
-            }
-       
+        }
+
     }
 
 }

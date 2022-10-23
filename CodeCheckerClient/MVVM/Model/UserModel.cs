@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CodeCheckerClient.MVVM.Model
+﻿namespace CodeCheckerClient.MVVM.Model
 {
     internal class UserModel
     {
         private string _id;
-        private string _course;
+        private CourseModel _course;
+        private HomeworkModel _homework;
         private string _year;
         private bool _IsALecturer;
         private string _hwname;
@@ -19,7 +14,9 @@ namespace CodeCheckerClient.MVVM.Model
         public bool IsALecturer { get { return _IsALecturer; } set { _IsALecturer = value; } }
         public string Id { get { return _id; } set { _id = value; } }
 
-        public string CurrentlyShownCourse { get { return _course; } set { _course = value; } }
+        public CourseModel CurrentlyShownCourse { get { return _course; } set { _course = value; } }
+        public HomeworkModel CurrentlyShownHomeWork { get { return _homework; } set { _homework = value; } }
+
 
         public string CurrentlyShownYear { get { return _year; } set { _year = value; } }
 
