@@ -13,7 +13,6 @@ namespace CodeCheckerClient
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
         }
 
         //makes the window movable since window style was set to None

@@ -32,10 +32,10 @@
                     <RowDefinition />
 
                 </Grid.RowDefinitions>
-                <Button Style="{StaticResource WindowButtonTheme}" Width="20" Height="20" Grid.Column="1" Name="CloseButton" Content="" Click="CloseButton_Click" HorizontalAlignment="Center" Background="#FF2211" Margin="370,15,0,15" FontSize="25"  />
-                <Button Style="{StaticResource WindowButtonTheme}" Width="20" Height="20" Grid.Column="1" Name="MinimizeButton" Content="" Click="MinimizeButton_Click" HorizontalAlignment="Left" Background="#FFcF00" Margin="345,15,0,15"  FontSize="30"/>
+                <Button Style="{StaticResource WindowButtonTheme}" Width="20" Height="20" Grid.Column="1" Name="CloseButton" Content="" Click="CloseButton_Click" HorizontalAlignment="Center" Background="#FF2211" Margin="350,15,0,15" FontSize="25"  />
+                <Button Style="{StaticResource WindowButtonTheme}" Width="20" Height="20" Grid.Column="1" Name="MinimizeButton" Content="" Click="MinimizeButton_Click" HorizontalAlignment="Left" Background="#FFcF00" Margin="335,15,0,15"  FontSize="30"/>
 
-                <TextBlock Text="Grade Cheker"
+                <TextBlock Text="Grade Checker"
                    VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                    Foreground="#FEEFE5"

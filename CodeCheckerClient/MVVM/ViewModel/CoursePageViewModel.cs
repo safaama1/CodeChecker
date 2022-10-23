@@ -12,6 +12,9 @@ namespace CodeCheckerClient.MVVM.ViewModel
     internal class CoursePageViewModel: ObservableObject
     {
         public RelayCommand GoBackCommand { get; set; }
+        public RelayCommand AddStudentCommand { get; set; }
+
+        public RelayCommand AddHomeWorkCommand { get; set; }
 
         public string _coursename;
         public string _year;
@@ -28,12 +31,12 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
         public string _Shomework;
         public string SHomeWork { get { return this._Shomework; } set {
-                Trace.WriteLine("" + value);
+            
                 UserModel.Instance.Hwname=value;
                 this._Shomework = value;
                 if (UserModel.Instance.IsALecturer==true)
                 {
-
+                    MainViewModel.Instance().CurrentView = new LectuererHomeWorkPageViewModel();
                 }
                 else
                 {
@@ -47,6 +50,15 @@ namespace CodeCheckerClient.MVVM.ViewModel
             GoBackCommand = new RelayCommand(o =>
             {
                     MainViewModel.Instance().CurrentView = new MainPageViewModel();
+            });
+            AddStudentCommand = new RelayCommand(o =>
+            {
+                MainViewModel.Instance().CurrentView = new AddStudentPageViewModel();
+            });
+
+            AddHomeWorkCommand = new RelayCommand(o =>
+            {
+                MainViewModel.Instance().CurrentView = new AddHomeWorkPageViewModel();
             });
 
             CourseName = UserModel.Instance.CurrentlyShownCourse;

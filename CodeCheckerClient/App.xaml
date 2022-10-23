@@ -38,6 +38,20 @@
                 <view:HomeWorkPageView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:AddStudentPageViewModel}">
+                <view:AddStudentPageView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:AddHomeWorkPageViewModel}">
+                <view:AddHomeWorkPageView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:LectuererHomeWorkPageViewModel}">
+                <view:LectuererHomeWorkPageView/>
+            </DataTemplate>
+
+
+
         </ResourceDictionary>
     </Application.Resources> 
 </Application>

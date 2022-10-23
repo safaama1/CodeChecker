@@ -1,0 +1,177 @@
+﻿<UserControl x:Class="CodeCheckerClient.MVVM.View.AddHomeWorkPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CodeCheckerClient.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+              xmlns:viewModel="clr-namespace:CodeCheckerClient.MVVM.ViewModel"
+             >
+    <UserControl.DataContext>
+        <viewModel:AddHomeWorkPageViewModel/>
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Converter" />
+    </UserControl.Resources>
+    <Grid>
+        <Border CornerRadius="0,0,10,10" Background="#2D313F"  >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="450"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="300"/>
+
+                    <RowDefinition Height="75"/>
+
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="0" Grid.Row="0" Command="{Binding GoBackCommand}" 
+                FontFamily="Segoe UI Symbol" Content="&#xE112;"  RenderTransformOrigin="0.512,0.522" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="#00916E">
+                </Button>
+                
+                <TextBlock Text="Add Homework"
+                   Foreground="#FFFCF9"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                   FontSize="50"
+                   Grid.Column="1"
+                           Grid.Row="0"
+                   FontWeight="Bold"
+                       Style="{StaticResource TextBlockTheme}" Height="60" />
+
+                <TextBlock Text="hw name:"
+
+                   Foreground="#FFFCF9"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   FontSize="25"
+                   Grid.Column="1"
+                   Grid.Row="1"
+                   Style="{StaticResource TextBlockTheme}"
+                   
+                   RenderTransformOrigin="0.471,0.5" Margin="40,0,0,0" />
+
+                <TextBox  Text="{Binding HomeWorkName}" Style="{StaticResource TextBoxTheme}" Grid.Row="1" Grid.Column="1"  Margin="225,15,40,15" />
+                <TextBlock Text="set deadline :"
+                   Margin="40,0,0,0"
+                   Foreground="#FFFCF9"
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   FontSize="25"
+                   Grid.Column="1"
+                   Grid.Row="2"
+                   Style="{StaticResource TextBlockTheme}"
+                   Height="30" Width="300"
+                   RenderTransformOrigin="0.471,0.5" />
+
+                <DatePicker Name="MonthlyCalendar"  IsTodayHighlighted="True" xmlns:sys="clr-namespace:System;assembly=mscorlib"  Grid.Row="2" Grid.Column="1" BorderThickness="0" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="260,0,0,0" SelectedDate="{Binding Deadline}"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <Border Grid.Row="3" Grid.Column="1" BorderThickness="0" CornerRadius="10" Background="#00916E"></Border>
+                <TextBlock Text="choose rule type :"
+                   Margin="40,22,0,0"
+                   Foreground="#FFFCF9"
+                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   FontSize="25"
+                   Grid.Column="1"
+                   Grid.Row="3"
+                   Style="{StaticResource TextBlockTheme}"
+                   Height="30" Width="300"
+                   RenderTransformOrigin="0.471,0.5" />
+                <ComboBox
+            Grid.Row="3"
+              Grid.Column="1" 
+              Width="150"
+              Height="30"
+              HorizontalAlignment="Left"
+              VerticalAlignment="Top"
+              ItemsSource="{Binding Rules}"   
+              SelectedItem="{Binding SRules}"
+               IsEditable="False"
+            Style="{StaticResource RoundComboBox}" Margin="260,22,0,0"
+              />
+
+                <TextBlock Text="file name :"
+                    Margin="40,75,0,0"
+                    Foreground="#FFFCF9"
+                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                    FontSize="25"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Style="{StaticResource TextBlockTheme}"
+                    Height="30" Width="212"
+                    RenderTransformOrigin="0.471,0.5" />
+
+
+                <TextBox  Text="{Binding FileName}" Style="{StaticResource TextBoxTheme}" Grid.Row="3" Grid.Column="1"  Margin="225,75,40,185" />
+                <TextBlock Text="weight    :"
+                    Margin="40,0,0,0"
+                    Foreground="#FFFCF9"
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    FontSize="25"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                    Style="{StaticResource TextBlockTheme}"
+                    Height="30" Width="212"
+                    RenderTransformOrigin="0.471,0.5" />
+
+                <TextBox  Text="{Binding Weight}" Style="{StaticResource TextBoxTheme}" Grid.Row="3" Grid.Column="1"  Margin="225,130,40,130" />
+
+
+                <TextBlock Text="pattern :"
+                    Margin="40,191,0,0"
+                    Foreground="#FFFCF9"
+                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                    FontSize="25"
+                    Grid.Column="1"
+                    Grid.Row="3"
+                           Visibility="{Binding Path=Rule3, Converter={StaticResource Converter}}" 
+                    Style="{StaticResource TextBlockTheme}"
+                    Height="30" Width="212"
+                    RenderTransformOrigin="0.471,0.5" />
+
+                <TextBox  Visibility="{Binding Path=Rule3, Converter={StaticResource Converter}}" Text="{Binding Pattern}" Style="{StaticResource TextBoxTheme}" Grid.Row="3" Grid.Column="1"  Margin="225,187,40,75" />
+
+                <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="3" Margin="155,241,155,10"  Command="{Binding AddRuleCommand}" Content="Add Rule"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="4" Margin="70,10,70,-10"  Command="{Binding AddHomeWorkCommand}">
+                    Add homework
+                </Button>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

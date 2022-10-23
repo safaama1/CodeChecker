@@ -1,8 +1,11 @@
-﻿
+﻿C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Release\GeneratedInternalTypeHelper.g.cs
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\App.xaml;;
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MainWindow.xaml;;
+FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\AddHomeWorkPageView.xaml;;
+FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\AddStudentPageView.xaml;;
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\CoursePageView.xaml;;
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\HomeWorkPageView.xaml;;
+FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\LectuererHomeWorkPageView.xaml;;
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\LoginPageView.xaml;;
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\MainPageView.xaml;;
 FC:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\MVVM\View\StarterPageView.xaml;;
