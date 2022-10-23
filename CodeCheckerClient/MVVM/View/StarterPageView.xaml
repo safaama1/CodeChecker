@@ -33,7 +33,7 @@
                 </Grid.RowDefinitions>
 
 
-                <TextBlock Text="Grade Cheker"
+                <TextBlock Text="Grade Checker"
                    VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                    Foreground="#FEEFE5"

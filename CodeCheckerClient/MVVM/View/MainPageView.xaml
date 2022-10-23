@@ -51,7 +51,7 @@
     </UserControl.Resources>
     <Grid>
         <!--353238 1B998B  101419 -->
-        <Border CornerRadius="0,0,10,10" Background="#353238"  >
+        <Border CornerRadius="0,0,10,10" Background="#2D313F"  >
 
             <Grid >
 

@@ -48,7 +48,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Border CornerRadius="0,0,10,10" Background="#353238"  >
+    <Border CornerRadius="0,0,10,10" Background="#2D313F"  >
 
         <Grid >
 
@@ -59,9 +59,9 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="70"/>
                 <RowDefinition Height="75"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="295"/>
                 <RowDefinition Height="95"/>
 
             </Grid.RowDefinitions>
@@ -69,22 +69,38 @@
             <Button Grid.Column="0" Grid.Row="0" Command="{Binding GoBackCommand}" 
                 FontFamily="Segoe UI Symbol" Content="&#xE112;"  RenderTransformOrigin="0.512,0.522" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="#00916E">
             </Button>
-            <TextBlock Text="{Binding DueDate,StringFormat=' due date : {0}'}"
+            <Border       Grid.Column="1"
+                       Grid.Row="1"
+                          Background="#00916E"
+                          CornerRadius="10"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="430"
+                          Height="60"
+                          >
+                <TextBlock Text="{Binding DueDate,StringFormat=' deadline : {0}'}"
                    Foreground="#FFFCF9"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                       
                    FontSize="30"
                    Grid.Column="1"
                        Grid.Row="2"
-                       Style="{StaticResource TextBlockTheme}" Height="60" />
+                           
+                       Style="{StaticResource TextBlockTheme}"   />
 
-            <TextBlock Text="{Binding Grade,FallbackValue='?', StringFormat=' {0} / 100 '}" 
+            </Border>
+            <Border Background="#00916E"
+                            Grid.Column="1"
+                       Grid.Row="2" VerticalAlignment="Top" CornerRadius="10" Height="60" Width="430"
+                    Margin="7">
+                <TextBlock Text="{Binding Grade,FallbackValue='?', StringFormat=' {0} / 100 '}" 
                    Foreground="#FFFCF9"
-                       VerticalAlignment="Top" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
                    FontSize="30"
-                   Grid.Column="1"
-                       Grid.Row="3"
-                       Style="{StaticResource TextBlockTheme}" Height="137" />
-
+           
+                       Style="{StaticResource TextBlockTheme}" Height="35" />
+            </Border>
+            <!--
             <Grid Grid.Row="1" Grid.Column="1" Background="Transparent" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40"/>
@@ -102,7 +118,7 @@
                 </Hyperlink>
                 </TextBlock>
             </Grid>
-
+-->
 
             <!--<TextBlock><Hyperlink NavigateUri="http://designer.cooltext.com/Setup.zip" RequestNavigate="saveToWebService">Lame Xbap Save</Hyperlink></TextBlock>
             -->
@@ -110,7 +126,7 @@
 
             <ListBox
         ItemsSource="{Binding Uploaded}" 
-        ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="3" Margin="10,76,10,10"
+        ScrollViewer.VerticalScrollBarVisibility="Visible" Grid.Row="3" Margin="10,43,10,43"
           SelectedItem="{Binding SUploaded}" Grid.Column="1"
         >
                 <ListBox.ItemsPanel>

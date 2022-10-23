@@ -11,6 +11,9 @@ namespace CodeCheckerClient.MVVM.ViewModel
     internal class CoursePageViewModel : ObservableObject
     {
         public RelayCommand GoBackCommand { get; set; }
+        public RelayCommand AddStudentCommand { get; set; }
+
+        public RelayCommand AddHomeWorkCommand { get; set; }
 
         public string _coursename;
         public string _year;
@@ -26,18 +29,12 @@ namespace CodeCheckerClient.MVVM.ViewModel
         public string[] HomeWorks { get { return this._homeworks; } set { this._homeworks = value; } }
 
         public string _Shomework;
-        public string SHomeWork
-        {
-            get { return this._Shomework; }
-            set
-            {
+        public string SHomeWork { get { return this._Shomework; } set {
                 Trace.WriteLine("" + value);
-                UserModel.Instance.Hwname = value;
+                UserModel.Instance.Hwname=value;
                 this._Shomework = value;
                 if (UserModel.Instance.IsALecturer == true)
                 {
-                    UserModel.Instance.CurrentlyShownHomeWork = UserModel.Instance.CurrentlyShownCourse.Homework.Where(h => h.Name == value).FirstOrDefault();
-                    MainViewModel.Instance().CurrentView = new HomeWorkPageViewModel();
 
                 }
                 else
@@ -53,14 +50,6 @@ namespace CodeCheckerClient.MVVM.ViewModel
             {
                 MainViewModel.Instance().CurrentView = new MainPageViewModel();
             });
-            if (UserModel.Instance.CurrentlyShownCourse != null)
-            {
-                string folderName = $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}";
-                // If directory does not exist, create it
-                if (!Directory.Exists(folderName))
-                {
-                    Directory.CreateDirectory(folderName);
-                }
 
                 CourseName = UserModel.Instance.CurrentlyShownCourse.Name;
                 Year = UserModel.Instance.CurrentlyShownYear;
