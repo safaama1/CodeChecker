@@ -45,7 +45,7 @@
                            Grid.Row="1"
                    FontWeight="Bold"
                        Style="{StaticResource TextBlockTheme}" Height="60" />
-                <TextBlock Text="enter name :"
+                <TextBlock Text="Enter Name :"
                    Margin="70,0,0,0"
                    Foreground="#FFFCF9"
                    VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -57,7 +57,7 @@
                    RenderTransformOrigin="0.471,0.5" />
                 <TextBox  Text="{Binding UserName}" Style="{StaticResource TextBoxTheme}" Grid.Row="3" Grid.Column="1"  Margin="70,10,70,10" />
 
-                <TextBlock Text="enter id :"
+                <TextBlock Text="Enter ID :"
                    Margin="70,0,0,0"
                    Foreground="#FFFCF9"
                    VerticalAlignment="Center" HorizontalAlignment="Left"

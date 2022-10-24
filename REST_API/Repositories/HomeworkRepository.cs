@@ -26,11 +26,11 @@ namespace REST_API.Repositories
             await _context.SaveChangesAsync().ConfigureAwait(false);
         }
 
-        public async Task AddNewSubmitToHomework(SubmittedHomework submitted, Guid homeworkId, string studentId)
+        public async Task<SubmittedHomework> AddNewSubmitToHomework(SubmittedHomework submitted, Guid homeworkId, string studentId)
         {
-            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homeworkId).FirstOrDefault();
+            var homeworkEntity = _context.Homework.Where(h => h.HomeworkId == homeworkId).Include(h => h.SubmittedHomework).FirstOrDefault();
             if (homeworkEntity == null) throw new KeyNotFoundException("Homework not found");
-            var studentEntity = _context.Students.Where(s => s.StudentId == studentId).FirstOrDefault();
+            var studentEntity = _context.Students.Where(s => s.StudentId == studentId).Include(h => h.SubmittedHomework).FirstOrDefault();
             if (studentEntity == null) throw new KeyNotFoundException("Student not found");
             // update the submitted homework connected entities 
             submitted.HomeworkId = homeworkId;
@@ -40,9 +40,10 @@ namespace REST_API.Repositories
             // add the submitted homework to the student & homework enitities 
             homeworkEntity.SubmittedHomework.Add(submitted);
             studentEntity.SubmittedHomework.Add(submitted);
-            var submittedEntity = _context.HomeworkRules.Where(r => r.HomeworkRuleId == submitted.SubmittedHomeworkId).FirstOrDefault();
+            var submittedEntity = _context.SubmittedHomework.Where(s => s.SubmittedHomeworkId == submitted.SubmittedHomeworkId).FirstOrDefault();
             if (submittedEntity == null) _context.SubmittedHomework.Add(submitted);
             await _context.SaveChangesAsync().ConfigureAwait(false);
+            return submitted;
         }
 
         public async Task<Homework> CreateHomeworkAsync(Homework homework)
@@ -109,8 +110,9 @@ namespace REST_API.Repositories
         public async Task<IEnumerable<Homework>> GetAllHomeworkAsync()
         {
             return await _context.Homework
-                  .Include(homework => homework.SubmittedHomework)
                   .Include(homework => homework.HomeworkRules)
+                  .Include(homework => homework.SubmittedHomework)
+                  .ThenInclude(submit => submit.Student)
                   .ToListAsync()
                   .ConfigureAwait(false);
         }
@@ -118,8 +120,9 @@ namespace REST_API.Repositories
         {
             var homework = await _context.Homework
                   .Where(homework => homework.HomeworkId == id)
-                  .Include(homework => homework.SubmittedHomework)
                   .Include(homework => homework.HomeworkRules)
+                  .Include(homework => homework.SubmittedHomework)
+                  .ThenInclude(submit => submit.Student)
                   .FirstOrDefaultAsync()
                   .ConfigureAwait(false);
             if (homework == null) throw new KeyNotFoundException("Homework not found");

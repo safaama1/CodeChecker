@@ -81,8 +81,9 @@ namespace REST_API.Repositories
             var course = await _context.Courses
                 .Where(course => course.CourseId == id)
                 .Include(course => course.Students)
-                .Include(course => course.Homework)
                 .Include(course => course.Teacher)
+                .Include(course => course.Homework)
+                .ThenInclude(h => h.SubmittedHomework)
                 .FirstOrDefaultAsync()
                 .ConfigureAwait(false);
             if (course != null) return course;

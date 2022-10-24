@@ -1,11 +1,12 @@
 ﻿using CodeCheckerClient.Core;
+using CodeCheckerClient.Models;
+using CodeCheckerClient.MVVM.Model;
+using CodeCheckerClient.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
@@ -14,9 +15,9 @@ namespace CodeCheckerClient.MVVM.ViewModel
         private string _title;
 
         public string HomeWorkName { get { return _title; } set { _title = value; } }
-        private string _AllRules;
+        private List<AddRuleToHomeworkModel> _AllRules = new List<AddRuleToHomeworkModel>();
         private bool _Rule3 = false;
-        public bool Rule3 { get { return _Rule3; } set { _Rule3 = value;  OnPropertyChanged(); } }
+        public bool Rule3 { get { return _Rule3; } set { _Rule3 = value; OnPropertyChanged(); } }
         public RelayCommand GoBackCommand { get; set; }
 
         public RelayCommand AddRuleCommand { get; set; }
@@ -50,7 +51,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
             get { return _SRules; }
             set
             {
-                
+
                 _SRules = value;
 
 
@@ -76,37 +77,60 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 MainViewModel.Instance().CurrentView = new CoursePageViewModel();
             });
 
-            AddHomeWorkCommand = new RelayCommand(o => {
+            AddHomeWorkCommand = new RelayCommand(async o =>
+            {
                 Trace.WriteLine(_title + " " + _Deadline + " " + _AllRules);
+                var homeworkToAdd = new AddHomeworkToCourseModel { Name = _title, CourseId = UserModel.Instance.CurrentlyShownCourse.CourseId };
+                var createHomeworkResponse = await REST_API.PostCallAsync($"Homework/create", homeworkToAdd).ConfigureAwait(false);
+                var homeworkId = createHomeworkResponse.Content.ReadAsAsync<HomeworkModel>().Result.HomeworkId;
+                foreach (AddRuleToHomeworkModel ruleToAdd in _AllRules)
+                {
+
+                    var addRuleToHomeworkResponse = await REST_API.PutCallAsync($"Homework/{homeworkId}/add-rule", ruleToAdd).ConfigureAwait(false);
+                    if (addRuleToHomeworkResponse.StatusCode != System.Net.HttpStatusCode.Accepted)
+                    {
+                        _AllRules = new List<AddRuleToHomeworkModel>();
+                        SRules = "";
+                        FileName = "";
+                        Weight = "";
+                        Pattern = "";
+                        return;
+                    }
+                }
+
+                if (createHomeworkResponse.StatusCode == System.Net.HttpStatusCode.OK)
+                    MainViewModel.Instance().CurrentView = new CoursePageViewModel();
+                else _title = "";
+
 
             });
 
-            AddRuleCommand = new RelayCommand(o => {
+            AddRuleCommand = new RelayCommand(o =>
+            {
 
-                if (!(string.IsNullOrEmpty(FileName) || string.IsNullOrEmpty(Weight)|| (Rule3 == true && string.IsNullOrEmpty(Pattern))))
+                if (!(string.IsNullOrEmpty(FileName) || string.IsNullOrEmpty(Weight) || (Rule3 == true && string.IsNullOrEmpty(Pattern))))
                 {
 
 
 
 
-                    string a;
+                    string ruleParameter;
                     if (Rule3 == true)
-                        a = "3," + FileName + "," + Weight + "," + Pattern;
+                        ruleParameter = FileName + "," + Weight + "," + Pattern;
                     else
-                        a = "2," + FileName + "," + Weight;
+                        ruleParameter = FileName + "," + Weight;
 
+                    var ruleToAdd = new AddRuleToHomeworkModel { HomeworkRuleId = Guid.NewGuid(), Title = _SRules, Description = ruleParameter, Points = Convert.ToDouble(Weight) };
+                    _AllRules.Add(ruleToAdd);
 
-                    _AllRules += ":" + a;
-
-                    Trace.WriteLine(SRules + " " + FileName + " " + Weight + " " + Pattern);
                     FileName = "";
                     Weight = "";
                     Pattern = "";
-                    
-             
-                   
+
+
+
                 }
             });
         }
-        }
+    }
 }

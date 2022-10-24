@@ -25,11 +25,11 @@ namespace REST_API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<ActionResult<IEnumerable<Homework>>> CreateHomeworkAsync(AddHomeworkToCourseModel model)
+        public async Task<ActionResult<Homework>> CreateHomeworkAsync(AddHomeworkToCourseModel model)
         {
             var hwId = new Guid();
-            var course = await _homeworkRepository.CreateHomeworkAsync(new Homework { HomeworkId = hwId, Name = model.Name, CourseId = model.CourseId }).ConfigureAwait(false);
-            return Ok(course);
+            var homework = await _homeworkRepository.CreateHomeworkAsync(new Homework { HomeworkId = hwId, Name = model.Name, CourseId = model.CourseId }).ConfigureAwait(false);
+            return Ok(homework);
         }
 
         [HttpPut("{id}/add-rule")]
@@ -58,8 +58,8 @@ namespace REST_API.Controllers
         {
             try
             {
-                var course = await _homeworkRepository.GetHomeworkAsync(id).ConfigureAwait(false);
-                if (course == null) return NotFound($"Homework not found with id = {id}");
+                var homework = await _homeworkRepository.GetHomeworkAsync(id).ConfigureAwait(false);
+                if (homework == null) return NotFound($"Homework not found with id = {id}");
 
                 await _homeworkRepository.UpdateSubmittedHomeworkGradeAsync(sId, homeworkGrade.Grade).ConfigureAwait(false);
                 return Accepted();
@@ -71,7 +71,7 @@ namespace REST_API.Controllers
         }
 
         [HttpPut("{id}/add-submitted-homework")]
-        public async Task<ActionResult> AddSubmitToHomeworkAsync(Guid id, AddSubmittedHomeworkModel addSubmittedHomework)
+        public async Task<ActionResult<SubmittedHomework>> AddSubmitToHomeworkAsync(Guid id, AddSubmittedHomeworkModel addSubmittedHomework)
         {
             if (string.IsNullOrEmpty(addSubmittedHomework.StudentId))
                 return BadRequest("The student ID that submitted the homework is required");
@@ -82,8 +82,8 @@ namespace REST_API.Controllers
             };
             try
             {
-                await _homeworkRepository.AddNewSubmitToHomework(submitted, id, addSubmittedHomework.StudentId).ConfigureAwait(false);
-                return Accepted();
+                var submittedEntity = await _homeworkRepository.AddNewSubmitToHomework(submitted, id, addSubmittedHomework.StudentId).ConfigureAwait(false);
+                return Accepted(submittedEntity);
             }
             catch (Exception ex)
             {

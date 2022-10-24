@@ -44,7 +44,7 @@
                        Style="{StaticResource TextBlockTheme}" Height="60" Width="363"/>
 
             <TextBlock
-                       Text="{Binding Average, StringFormat=' average : {0}'}"
+                       Text="{Binding Average, StringFormat=' Students grade AVG : {0}'}"
                    Foreground="#FFFCF9"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
                        

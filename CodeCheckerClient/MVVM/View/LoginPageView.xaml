@@ -38,7 +38,7 @@
                    FontWeight="Bold"
                        Style="{StaticResource TextBlockTheme}" Height="60" Width="363"/>
 
-                <TextBlock Text="enter id :"
+                <TextBlock Text="Enter ID :"
                    Margin="70,0,0,0"
                    Foreground="#FFFCF9"
                    VerticalAlignment="Center" HorizontalAlignment="Left"

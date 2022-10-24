@@ -1,13 +1,7 @@
 ﻿using CodeCheckerClient.Core;
+using CodeCheckerClient.Models;
+using CodeCheckerClient.MVVM.Model;
 using CodeCheckerClient.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
@@ -27,20 +21,18 @@ namespace CodeCheckerClient.MVVM.ViewModel
             {
                 MainViewModel.Instance().CurrentView = new CoursePageViewModel();
             });
-            AddStudentCommand = new RelayCommand(o =>
+            AddStudentCommand = new RelayCommand(async o =>
             {
+                var studentToAdd = new AddStudentToCourseModel { Name = UserName, StudentId = UserId };
+                var createStudentResponse = await REST_API.PostCallAsync($"Student/create", studentToAdd).ConfigureAwait(false);
+                var addStudentToCourseResponse = await REST_API.PutCallAsync($"Course/{UserModel.Instance.CurrentlyShownCourse.CourseId}/add-student", studentToAdd).ConfigureAwait(false);
 
-               // _UserId _UserName;
+                if (createStudentResponse.StatusCode == System.Net.HttpStatusCode.OK
+                    && addStudentToCourseResponse.StatusCode == System.Net.HttpStatusCode.Accepted)
+                    MainViewModel.Instance().CurrentView = new CoursePageViewModel();
+                else
+                    UserName = UserId = "";
 
-                // todo not working yet 
-                //Tranform it to Json object
-                //string jsonData = JsonConvert.SerializeObject(myData);
-                //var a=REST_API.GetCall("​/api​/Course​/all");
-                //  dynamic stuff = JsonConvert.DeserializeObject(a);
-                //JObject jsonObject = JObject.Parse(a.Result.Content.ToString());
-
-                //REST_API.PutCall("​/api​/Course​/{id}​/add-student",)
-                //Trace.WriteLine(jsonObject);
             });
         }
     }

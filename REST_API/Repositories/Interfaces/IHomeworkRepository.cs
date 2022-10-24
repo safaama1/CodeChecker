@@ -22,7 +22,7 @@ namespace REST_API.Repositories.Interfaces
         Task UpdateSubmittedHomeworkAsync(SubmittedHomework submittedHomework);
         Task UpdateSubmittedHomeworkGradeAsync(Guid submittedHomeworkId, double newGrade);
         Task AddRuleToHomework(HomeworkRule rule, Guid homeworkId);
-        Task AddNewSubmitToHomework(SubmittedHomework submitted, Guid homeworkId, string studentId);
+        Task<SubmittedHomework> AddNewSubmitToHomework(SubmittedHomework submitted, Guid homeworkId, string studentId);
 
         // Delete methods
         Task DeleteHomeworkAsync(Guid id);

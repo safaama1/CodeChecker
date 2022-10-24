@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.Json;
 
 namespace CodeCheckerClient.MVVM.ViewModel
 {
@@ -25,20 +26,26 @@ namespace CodeCheckerClient.MVVM.ViewModel
         public string Year { get { return _year; } set { _year = value; } }
 
 
-        public string[] _homeworks;
-        public string[] HomeWorks { get { return this._homeworks; } set { this._homeworks = value; } }
+        public HomeworkModel[] _homeworks;
+        public string[] HomeWorks { get { return this._homeworks.Select(h => h.Name).ToArray(); } }
 
         public string _Shomework;
-        public string SHomeWork { get { return this._Shomework; } set {
+        public string SHomeWork
+        {
+            get { return this._Shomework; }
+            set
+            {
                 Trace.WriteLine("" + value);
-                UserModel.Instance.Hwname=value;
+                UserModel.Instance.CurrentlyShownHomeWork = _homeworks.FirstOrDefault(h => h.Name == value);
                 this._Shomework = value;
                 if (UserModel.Instance.IsALecturer == true)
                 {
-
+                    MainViewModel.Instance().CurrentView = new LectuererHomeWorkPageViewModel();
                 }
                 else
                 {
+                    MainViewModel.Instance().CurrentView = new HomeWorkPageViewModel();
+
                 }
             }
         }
@@ -50,6 +57,19 @@ namespace CodeCheckerClient.MVVM.ViewModel
             {
                 MainViewModel.Instance().CurrentView = new MainPageViewModel();
             });
+            AddStudentCommand = new RelayCommand(o =>
+            {
+                MainViewModel.Instance().CurrentView = new AddStudentPageViewModel();
+            });
+
+            AddHomeWorkCommand = new RelayCommand(o =>
+            {
+                MainViewModel.Instance().CurrentView = new AddHomeWorkPageViewModel();
+            });
+
+
+            if (UserModel.Instance.CurrentlyShownCourse != null)
+            {
 
                 CourseName = UserModel.Instance.CurrentlyShownCourse.Name;
                 Year = UserModel.Instance.CurrentlyShownYear;
@@ -60,12 +80,25 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var courseDetails = response.Result.Content.ReadAsAsync<CourseModel>().Result;
+                    if (UserModel.Instance.IsALecturer)
+                    {
+                        string rulesJson = JsonSerializer.Serialize(courseDetails);
+                        File.WriteAllText(
+                            $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\course_info.json", rulesJson);
+                        // TODO 
+                        //using (var writer = new StreamWriter("filePersons.csv"))
+
+                        //using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                        //{
+                        //    csv.WriteRecords(myPersonObjects);
+                        //}
+                    }
                     UserModel.Instance.CurrentlyShownCourse = courseDetails;
                     var couresHomeworks = courseDetails.Homework;
-                    HomeWorks = couresHomeworks.Select(h => h.Name).ToArray();
-                    foreach (var homework in HomeWorks)
+                    _homeworks = couresHomeworks.ToArray();
+                    foreach (var homework in _homeworks.Select(h => h.Name).ToArray())
                     {
-                        folderName = $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\{homework}";
+                        var folderName = $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\{homework}";
                         // If directory does not exist, create it
                         if (!Directory.Exists(folderName))
                         {
@@ -74,9 +107,10 @@ namespace CodeCheckerClient.MVVM.ViewModel
                     }
                 }
             }
-
-
-
         }
+
+
+
     }
 }
+
