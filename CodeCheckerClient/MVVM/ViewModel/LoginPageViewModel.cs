@@ -7,7 +7,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
     internal class LoginPageViewModel : ObservableObject
     {
         public RelayCommand LogInCommand { get; set; }
-
+        public RelayCommand SignUpCommand { get; set; }
         private string _userId;
         public string UserId
         {
@@ -25,7 +25,15 @@ namespace CodeCheckerClient.MVVM.ViewModel
             {
                 CheckLoginAndNavigateIfExists(UserId);
             });
+
+
+            SignUpCommand = new RelayCommand(o =>
+            {
+
+                MainViewModel.Instance().CurrentView = new SignUpPageViewModel();
+            });
         }
+
 
         private bool CheckLoginAndNavigateIfExists(string id)
         {

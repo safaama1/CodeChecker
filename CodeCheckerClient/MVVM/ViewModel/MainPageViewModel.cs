@@ -16,6 +16,21 @@ namespace CodeCheckerClient.MVVM.ViewModel
         {
             if (!string.IsNullOrEmpty(UserModel.Instance.Id))
             {
+                IsALecturer = UserModel.Instance.IsALecturer;
+
+                AddCourseCommand = new RelayCommand(o =>
+                {
+                    MainViewModel.Instance().CurrentView = new AddCoursePageViewModel();
+
+
+                });
+                GoBackCommand = new RelayCommand(o =>
+                {
+                    UserModel.nullifyUser();
+                    MainViewModel.Instance().CurrentView = new LoginPageViewModel();
+
+          
+                });
 
                 if (UserModel.Instance.IsALecturer)
                 {
@@ -47,6 +62,10 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
 
         }
+
+        public Boolean IsALecturer { get; set; }
+
+        public RelayCommand AddCourseCommand { get; set; }
         public CourseModel[] _allCourses;
         public CourseModel[] AllCourses { get { return this._allCourses; } set { this._allCourses = value; } }
 
@@ -91,6 +110,8 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 MainViewModel.Instance().CurrentView = new CoursePageViewModel();
             }
         }
+
+        public RelayCommand GoBackCommand { get; set; }
         public void ModifyCourseList()
         {
 

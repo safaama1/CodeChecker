@@ -69,7 +69,17 @@
             <Button Grid.Column="0" Grid.Row="0" Command="{Binding GoBackCommand}" 
                 FontFamily="Segoe UI Symbol" Content="&#xE112;"  RenderTransformOrigin="0.512,0.522" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="#00916E">
             </Button>
-            <Border       Grid.Column="1"
+            <TextBlock  Text="{Binding HwName}"
+                   Foreground="#FFFCF9"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                      
+                   FontSize="50"
+                   Grid.Column="1"
+                           Grid.Row="1"
+                   FontWeight="Bold"
+                       Style="{StaticResource TextBlockTheme}" />
+
+            <!--<Border       Grid.Column="1"
                        Grid.Row="1"
                           Background="#00916E"
                           CornerRadius="10"
@@ -88,7 +98,7 @@
                            
                        Style="{StaticResource TextBlockTheme}"   />
 
-            </Border>
+            </Border>-->
             <Border Background="#00916E"
                             Grid.Column="1"
                        Grid.Row="2" VerticalAlignment="Top" CornerRadius="10" Height="60" Width="430"
@@ -181,7 +191,7 @@
                 </ListBox.ItemContainerStyle>
             </ListBox>
 
-            <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="4" Margin="70,10,70,10"  Command="{Binding UploadHomeWork}">
+            <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="3" Margin="70,267,70,47"  Command="{Binding UploadHomeWork}" Grid.RowSpan="2">
                 Upload
             </Button>
         </Grid>

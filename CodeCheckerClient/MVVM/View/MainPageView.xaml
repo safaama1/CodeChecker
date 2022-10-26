@@ -13,6 +13,7 @@
     </UserControl.DataContext>
 
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="Converter" />
         <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
             <Setter Property="OverridesDefaultStyle" Value="true"/>
             <Setter Property="Background" Value="#505050"/>
@@ -66,8 +67,11 @@
                     <RowDefinition Height="75"/>
                     <RowDefinition Height="95"/>
 
-                </Grid.RowDefinitions>
 
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0" Grid.Row="0" Command="{Binding GoBackCommand}" 
+                FontFamily="Segoe UI Symbol" Content="&#xE112;"  RenderTransformOrigin="0.512,0.522" Background="Transparent" BorderThickness="0" FontSize="30" Foreground="#00916E">
+                </Button>
                 <TextBlock Text="    All Courses"
                    Foreground="#FFFCF9"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -148,7 +152,21 @@
 
                     </ListBox.ItemContainerStyle>
                 </ListBox>
+
+                <Button Visibility="{Binding Path=IsALecturer, Converter={StaticResource Converter}}"
+                    Content="Add course"
+                    HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                   Margin="0,284,0,-264"
+                        Width="200"
+                        Grid.Column="1"
+                     Grid.Row="3"
+                    Command="{Binding AddCourseCommand}"
+                        Style="{StaticResource ButtonTheme}" />
+
             </Grid>
+
         </Border>
+
     </Grid>
 </UserControl>

@@ -5,6 +5,10 @@ namespace DataAccessLayer
 {
     public class CodeCheckerDbContext : DbContext
     {
+        public CodeCheckerDbContext()
+        {
+
+        }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Student> Students { get; set; }

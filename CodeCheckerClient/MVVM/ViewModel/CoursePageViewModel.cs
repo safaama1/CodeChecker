@@ -82,6 +82,14 @@ namespace CodeCheckerClient.MVVM.ViewModel
                     var courseDetails = response.Result.Content.ReadAsAsync<CourseModel>().Result;
                     if (UserModel.Instance.IsALecturer)
                     {
+                        UserModel.Instance.CurrentlyShownCourse = courseDetails;
+                        var folderName = $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}";
+                        // If directory does not exist, create it
+                        if (!Directory.Exists(folderName))
+                        {
+                            Directory.CreateDirectory(folderName);
+                        }
+
                         string rulesJson = JsonSerializer.Serialize(courseDetails);
                         File.WriteAllText(
                             $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\course_info.json", rulesJson);
@@ -93,7 +101,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
                         //    csv.WriteRecords(myPersonObjects);
                         //}
                     }
-                    UserModel.Instance.CurrentlyShownCourse = courseDetails;
+                    
                     var couresHomeworks = courseDetails.Homework;
                     _homeworks = couresHomeworks.ToArray();
                     foreach (var homework in _homeworks.Select(h => h.Name).ToArray())

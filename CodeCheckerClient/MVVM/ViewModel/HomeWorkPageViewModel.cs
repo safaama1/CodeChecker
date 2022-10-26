@@ -16,6 +16,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
 {
     internal class HomeWorkPageViewModel : ObservableObject
     {
+        public string HwName { get; set; }
         public RelayCommand GoBackCommand { get; set; }
         public RelayCommand UploadHomeWork { get; set; }
 
@@ -26,10 +27,10 @@ namespace CodeCheckerClient.MVVM.ViewModel
         public SubmittedHomeworkModel SubmittedHomework { get { return _submittedHomework; } set { _submittedHomework = value; OnPropertyChanged(); } }
 
 
-        private string _DueDate;
-        public string DueDate { get { return _DueDate; } set { _DueDate = value; } }
+        //private string _DueDate;
+        //public string DueDate { get { return _DueDate; } set { _DueDate = value; } }
 
-        private DateTime date { get; set; }
+       // private DateTime date { get; set; }
 
 
         private string[] _Uploaded;
@@ -41,12 +42,13 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
         public HomeWorkPageViewModel()
         {
+
             //TODO get from dataBase
-            date = new DateTime(2020, 05, 09, 09, 15, 00);
+           // date = new DateTime(2020, 05, 09, 09, 15, 00);
 
 
 
-            DueDate = date.ToString();
+          //  DueDate = date.ToString();
 
 
             //get the grade from database if the grade already exsists in the databse it will be displayed otherwise
@@ -54,6 +56,9 @@ namespace CodeCheckerClient.MVVM.ViewModel
             // set to zero and the submit button locked
             if (UserModel.Instance.CurrentlyShownHomeWork != null)
             {
+                if (!string.IsNullOrEmpty(UserModel.Instance.CurrentlyShownHomeWork.Name))
+                    HwName = UserModel.Instance.CurrentlyShownHomeWork.Name;
+
                 var response = REST_API.GetCallAsync($"Homework/{UserModel.Instance.CurrentlyShownHomeWork.HomeworkId}");
                 var selectedHomeworkDetails = response.Result.Content.ReadAsAsync<HomeworkModel>().Result;
                 UserModel.Instance.CurrentlyShownHomeWork = selectedHomeworkDetails;
