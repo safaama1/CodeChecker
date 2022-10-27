@@ -28,18 +28,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
             });
             AddCourseCommand = new RelayCommand(async o =>
             {
-                bool isInputValid = true;
-                try 
-                { 
-                    Int64.Parse(AcademicYear);
-                }
-                catch
-                {
-                    isInputValid = false;
-                }
-
                 var CourseToAdd = new AddCourseToLecturerModel { Name = CourseName, AcademicYear = AcademicYear , TeacherID = UserModel.Instance.Id};
-
 
                 if (int.TryParse(AcademicYear, out _))
                 { 

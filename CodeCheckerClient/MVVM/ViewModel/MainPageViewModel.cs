@@ -52,7 +52,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 }
                 _years = new ObservableCollection<string>(YearSet);
 
-                if (UserModel.Instance.CurrentlyShownYear == null)
+                if (UserModel.Instance.CurrentlyShownYear == null && Years.Count>0)
                     Syears = Years.Last<string>();
                 else
                     Syears = UserModel.Instance.CurrentlyShownYear;
