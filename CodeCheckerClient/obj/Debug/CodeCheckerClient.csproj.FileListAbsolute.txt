@@ -141,3 +141,8 @@ C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\Si
 C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\Theme\DataGridTheme.baml
 C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\AddCoursePageView.g.cs
 C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\MVVM\View\AddCoursePageView.baml
+C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\Theme\DataGridTheme.baml
+C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\MVVM\View\AddCoursePageView.g.cs
+C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\MVVM\View\SignUpPageView.g.cs
+C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\MVVM\View\AddCoursePageView.baml
+C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\MVVM\View\SignUpPageView.baml
