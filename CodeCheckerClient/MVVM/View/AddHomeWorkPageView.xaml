@@ -45,7 +45,7 @@
                    FontWeight="Bold"
                        Style="{StaticResource TextBlockTheme}" Height="60" />
 
-                <TextBlock Text="hw name:"
+                <TextBlock Text="Hw name:"
 
                    Foreground="#FFFCF9"
                    VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -73,7 +73,7 @@
 
 
                 <Border Grid.Row="3" Grid.Column="1" BorderThickness="0" CornerRadius="10" Background="#00916E"></Border>
-                <TextBlock Text="choose rule type :"
+                <TextBlock Text="Choose rule type :"
                    Margin="40,22,0,0"
                    Foreground="#FFFCF9"
                    VerticalAlignment="Top" HorizontalAlignment="Left"
@@ -96,7 +96,7 @@
             Style="{StaticResource RoundComboBox}" Margin="260,22,0,0"
               />
 
-                <TextBlock Text="file name :"
+                <TextBlock Text="File name :"
                     Margin="40,75,0,0"
                     Foreground="#FFFCF9"
                     VerticalAlignment="Top" HorizontalAlignment="Left"
@@ -109,7 +109,7 @@
 
 
                 <TextBox  Text="{Binding FileName}" Style="{StaticResource TextBoxTheme}" Grid.Row="3" Grid.Column="1"  Margin="225,75,40,185" />
-                <TextBlock Text="weight    :"
+                <TextBlock Text="Weight    :"
                     Margin="40,0,0,0"
                     Foreground="#FFFCF9"
                     VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -123,7 +123,7 @@
                 <TextBox  Text="{Binding Weight}" Style="{StaticResource TextBoxTheme}" Grid.Row="3" Grid.Column="1"  Margin="225,130,40,130" />
 
 
-                <TextBlock Text="pattern :"
+                <TextBlock Text="Pattern :"
                     Margin="40,191,0,0"
                     Foreground="#FFFCF9"
                     VerticalAlignment="Top" HorizontalAlignment="Left"

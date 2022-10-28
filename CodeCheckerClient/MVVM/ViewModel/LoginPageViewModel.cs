@@ -37,7 +37,10 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
         private bool CheckLoginAndNavigateIfExists(string id)
         {
+            string env_variable_admin_id = "0000";
             if (string.IsNullOrEmpty(id)) return false;
+            if (id == env_variable_admin_id)
+                MainViewModel.Instance().CurrentView = new SignUpPageViewModel();
 
             // check if there is a student/ teacher with the given id 
             var studentDetails = REST_API.GetCallAsync($"Student/{id}");

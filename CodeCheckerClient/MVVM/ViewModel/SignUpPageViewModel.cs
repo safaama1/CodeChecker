@@ -30,11 +30,17 @@ namespace CodeCheckerClient.MVVM.ViewModel
             });
             AddLecturerCommand = new RelayCommand(async o =>
             {
+                
                 var lecturerToAdd = new AddLectuerer { name = UserName, teacherID = UserId };
                 var createLecturerResponse = await REST_API.PostCallAsync($"Teacher/create", lecturerToAdd).ConfigureAwait(false);
 
                 if (createLecturerResponse.StatusCode == System.Net.HttpStatusCode.Created)
-                    MainViewModel.Instance().CurrentView = new CoursePageViewModel();
+                {
+                    UserModel.Instance.IsALecturer = true;
+                    UserModel.Instance.Id = UserId;
+                    
+                    MainViewModel.Instance().CurrentView = new MainPageViewModel();
+                }
                 else
                 {
                     UserName = UserId = "";

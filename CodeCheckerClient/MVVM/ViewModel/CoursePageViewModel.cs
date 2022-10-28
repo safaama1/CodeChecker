@@ -29,7 +29,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
 
         public HomeworkModel[] _homeworks;
-        public string[] HomeWorks { get { return this._homeworks.Select(h => h.Name).ToArray(); } }
+        public string[] HomeWorks { get { if(_homeworks!=null) return this._homeworks.Select(h => h.Name).ToArray(); return null; } }
 
         public string _Shomework;
         public string SHomeWork
@@ -109,8 +109,8 @@ namespace CodeCheckerClient.MVVM.ViewModel
                             Directory.CreateDirectory(folderName);
                         }
                     }
-
-                    CreateCourseGradesCSV(_homeworks);
+                    if (UserModel.Instance.IsALecturer)
+                        CreateCourseGradesCSV(_homeworks);
                 }
             }
         }
@@ -118,6 +118,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
         private void CreateCourseGradesCSV(HomeworkModel[] homeworks)
         {
             using (var writer = new StreamWriter($@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\course_grades.csv"))
+           
             using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
 
@@ -131,6 +132,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
 
                 foreach (var student in UserModel.Instance.CurrentlyShownCourse.Students)
                 {
+                    
                     var response = REST_API.GetCallAsync($"Student/{student.StudentId}");
 
                     if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
