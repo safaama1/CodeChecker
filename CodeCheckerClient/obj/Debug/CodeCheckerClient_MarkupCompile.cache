@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Projects\Code-Checker\CodeCheckerClient\obj\Debug\
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\obj\Debug\
 CodeCheckerClient
 none
 false
 DEBUG;TRACE
-C:\Projects\Code-Checker\CodeCheckerClient\App.xaml
-15-1441026421
+C:\Users\Admin\source\repos\CodeChecker\CodeCheckerClient\App.xaml
+18-88184227
 
-39-863844186
-137878955774
-MainWindow.xaml;MVVM\View\AddHomeWorkPageView.xaml;MVVM\View\AddStudentPageView.xaml;MVVM\View\CoursePageView.xaml;MVVM\View\HomeWorkPageView.xaml;MVVM\View\LectuererHomeWorkPageView.xaml;MVVM\View\LoginPageView.xaml;MVVM\View\MainPageView.xaml;MVVM\View\StarterPageView.xaml;Theme\ButtonTheme.xaml;Theme\ComboBoxItemTheme.xaml;Theme\PasswordBoxTheme.xaml;Theme\TextBlockTheme.xaml;Theme\TextBoxTheme.xaml;Theme\WindowButtonTheme.xaml;
+45-2076941341
+137207286090
+MainWindow.xaml;MVVM\View\AddCoursePageView.xaml;MVVM\View\AddHomeWorkPageView.xaml;MVVM\View\AddStudentPageView.xaml;MVVM\View\CoursePageView.xaml;MVVM\View\HomeWorkPageView.xaml;MVVM\View\LectuererHomeWorkPageView.xaml;MVVM\View\LoginPageView.xaml;MVVM\View\MainPageView.xaml;MVVM\View\SignUpPageView.xaml;MVVM\View\StarterPageView.xaml;Theme\ButtonTheme.xaml;Theme\ComboBoxItemTheme.xaml;Theme\DataGridTheme.xaml;Theme\PasswordBoxTheme.xaml;Theme\TextBlockTheme.xaml;Theme\TextBoxTheme.xaml;Theme\WindowButtonTheme.xaml;
 
 False
 

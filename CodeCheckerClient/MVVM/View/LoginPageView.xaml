@@ -26,7 +26,7 @@
                     <RowDefinition Height="50"/>
                     <RowDefinition Height="75"/>
                     <RowDefinition Height="95"/>
-
+                    <RowDefinition Height="95"/>
                 </Grid.RowDefinitions>
 
 
@@ -52,6 +52,14 @@
                 <Button Style="{StaticResource ButtonTheme}" Grid.Column="1" Grid.Row="3" Margin="70,10,70,10"  Command="{Binding LogInCommand}">
                     Login
                 </Button>
+
+                <TextBlock  Foreground="#FFFCF9" Grid.Column="1" Grid.Row="4"  Style="{StaticResource TextBlockTheme}" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="70,0,-70,0">
+                    dont have an account?
+                </TextBlock>
+                <Button Background="Transparent" Foreground="#FFFCF9" Grid.Column="1" Grid.Row="3" Margin="191,91,217,80" Command="{Binding SignUpCommand}" BorderThickness="0" Grid.RowSpan="2" RenderTransformOrigin="0.479,0.342">
+                    Signup
+                </Button>
+
             </Grid>
         </Border>
 

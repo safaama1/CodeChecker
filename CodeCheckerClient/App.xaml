@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="Theme/TextBlockTheme.xaml"/>
                 <ResourceDictionary Source="Theme/WindowButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/ComboBoxItemTheme.xaml"/>
-
+                <ResourceDictionary Source="Theme/DataGridTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
            
             <DataTemplate DataType="{x:Type viewModel:StarterPageViewModel}">
@@ -48,6 +48,14 @@
 
             <DataTemplate DataType="{x:Type viewModel:LectuererHomeWorkPageViewModel}">
                 <view:LectuererHomeWorkPageView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SignUpPageViewModel}">
+                <view:SignUpPageView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:AddCoursePageViewModel}">
+                <view:AddCoursePageView/>
             </DataTemplate>
 
 

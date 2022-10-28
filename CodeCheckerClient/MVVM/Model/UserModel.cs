@@ -33,6 +33,10 @@
                 return instance;
             }
         }
+        public static void nullifyUser()
+        {
+           instance = null; 
+        }
     }
 
 
