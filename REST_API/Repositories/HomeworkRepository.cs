@@ -32,16 +32,30 @@ namespace REST_API.Repositories
             if (homeworkEntity == null) throw new KeyNotFoundException("Homework not found");
             var studentEntity = _context.Students.Where(s => s.StudentId == studentId).Include(h => h.SubmittedHomework).FirstOrDefault();
             if (studentEntity == null) throw new KeyNotFoundException("Student not found");
+
+            var checkeIfSubmittedBefore = studentEntity.SubmittedHomework.FirstOrDefault(s => s.HomeworkId == homeworkId);
+
             // update the submitted homework connected entities 
             submitted.HomeworkId = homeworkId;
             submitted.Homework = homeworkEntity;
             submitted.StudentId = studentId;
             submitted.Student = studentEntity;
-            // add the submitted homework to the student & homework enitities 
-            homeworkEntity.SubmittedHomework.Add(submitted);
-            studentEntity.SubmittedHomework.Add(submitted);
-            var submittedEntity = _context.SubmittedHomework.Where(s => s.SubmittedHomeworkId == submitted.SubmittedHomeworkId).FirstOrDefault();
-            if (submittedEntity == null) _context.SubmittedHomework.Add(submitted);
+
+            if (checkeIfSubmittedBefore == null)
+            {
+                // add the submitted homework to the student & homework enitities 
+                homeworkEntity.SubmittedHomework.Add(submitted);
+                studentEntity.SubmittedHomework.Add(submitted);
+                var submittedEntity = _context.SubmittedHomework.Where(s => s.SubmittedHomeworkId == submitted.SubmittedHomeworkId).FirstOrDefault();
+                if (submittedEntity == null) _context.SubmittedHomework.Add(submitted);
+            }
+            else
+            {
+                // don't add a new submit if there is alreaady an submit (by the same student) for the the same homework 
+                submitted.SubmittedHomeworkId = checkeIfSubmittedBefore.SubmittedHomeworkId;
+                checkeIfSubmittedBefore = submitted;
+            }
+
             await _context.SaveChangesAsync().ConfigureAwait(false);
             return submitted;
         }

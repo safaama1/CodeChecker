@@ -27,7 +27,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
                 var createStudentResponse = await REST_API.PostCallAsync($"Student/create", studentToAdd).ConfigureAwait(false);
                 var addStudentToCourseResponse = await REST_API.PutCallAsync($"Course/{UserModel.Instance.CurrentlyShownCourse.CourseId}/add-student", studentToAdd).ConfigureAwait(false);
 
-                if (createStudentResponse.StatusCode == System.Net.HttpStatusCode.OK
+                if (createStudentResponse.StatusCode == System.Net.HttpStatusCode.Created
                     && addStudentToCourseResponse.StatusCode == System.Net.HttpStatusCode.Accepted)
                     MainViewModel.Instance().CurrentView = new CoursePageViewModel();
                 else

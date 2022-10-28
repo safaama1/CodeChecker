@@ -77,7 +77,7 @@ namespace REST_API.Controllers
                 return BadRequest("The student ID that submitted the homework is required");
             var submitted = new SubmittedHomework
             {
-                SubmittedHomeworkId = new Guid(),
+                SubmittedHomeworkId = Guid.NewGuid(),
                 SubmittedDate = addSubmittedHomework.SubmittedDate,
             };
             try

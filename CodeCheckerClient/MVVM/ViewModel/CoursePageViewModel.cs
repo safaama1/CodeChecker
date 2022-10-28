@@ -1,7 +1,9 @@
 ﻿using CodeCheckerClient.Core;
 using CodeCheckerClient.MVVM.Model;
 using CodeCheckerClient.Services;
+using CsvHelper;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -85,13 +87,7 @@ namespace CodeCheckerClient.MVVM.ViewModel
                         string rulesJson = JsonSerializer.Serialize(courseDetails);
                         File.WriteAllText(
                             $@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\course_info.json", rulesJson);
-                        // TODO 
-                        //using (var writer = new StreamWriter("filePersons.csv"))
 
-                        //using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-                        //{
-                        //    csv.WriteRecords(myPersonObjects);
-                        //}
                     }
                     UserModel.Instance.CurrentlyShownCourse = courseDetails;
                     var couresHomeworks = courseDetails.Homework;
@@ -105,12 +101,60 @@ namespace CodeCheckerClient.MVVM.ViewModel
                             Directory.CreateDirectory(folderName);
                         }
                     }
+
+                    CreateCourseGradesCSV(_homeworks);
                 }
             }
         }
 
+        private void CreateCourseGradesCSV(HomeworkModel[] homeworks)
+        {
+            using (var writer = new StreamWriter($@"C:\{UserModel.Instance.CurrentlyShownCourse.AcademicYear}\{UserModel.Instance.CurrentlyShownCourse.Name}\course_grades.csv"))
+            using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
 
+                csvWriter.WriteField("Student ID");
+                foreach (var homework in homeworks)
+                {
+                    csvWriter.WriteField(homework.Name);
+                }
+                csvWriter.WriteField("Avg Grade");
+                csvWriter.NextRecord();
 
+                foreach (var student in UserModel.Instance.CurrentlyShownCourse.Students)
+                {
+                    var response = REST_API.GetCallAsync($"Student/{student.StudentId}");
+
+                    if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        var studentDetails = response.Result.Content.ReadAsAsync<StudentModel>().Result;
+                        csvWriter.WriteField(studentDetails.StudentId);
+                        double gradeAvg = 0;
+                        foreach (var homework in homeworks)
+                        {
+                            var submittedHw = studentDetails.SubmittedHomework.FirstOrDefault(h => h.HomeworkId == homework.HomeworkId);
+                            if (submittedHw != null && submittedHw?.Grade != null)
+                            {
+                                csvWriter.WriteField(submittedHw.Grade);
+                                gradeAvg += submittedHw.Grade;
+                            }
+                            else
+                            {
+                                csvWriter.WriteField(0);
+                                gradeAvg += 0;
+                            }
+
+                        }
+                        csvWriter.WriteField(gradeAvg / homeworks.Length);
+                        csvWriter.NextRecord();
+
+                    }
+                    else throw new HttpRequestException(response.ToString());
+
+                }
+
+            }
+        }
     }
 }
 
