@@ -33,9 +33,9 @@ Code Homework Checker is an application designed to facilitate the checking and 
 
 Clone the repository:
 
-`[bash
+[`[bash
 git clone https://github.com/your-username/code-homework-checker.git
-](https://github.com/safaama1/CodeChecker.git)`
+](https://github.com/safaama1/CodeChecker.git)`](https://github.com/safaama1/CodeChecker.git)
 
 ### Server-side
 
