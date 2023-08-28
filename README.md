@@ -33,9 +33,9 @@ Code Homework Checker is an application designed to facilitate the checking and 
 
 Clone the repository:
 
-\`\`\`bash
+`bash
 git clone https://github.com/your-username/code-homework-checker.git
-\`\`\`
+`
 
 ### Server-side
 
@@ -52,12 +52,7 @@ git clone https://github.com/your-username/code-homework-checker.git
 
 ## API Endpoints
 
-All server-side logic is handled through RESTful API endpoints:
-
-- **Create a Course**: `POST /api/courses`
-- **Delete a Course**: `DELETE /api/courses/{courseId}`
-- **Update a Course**: `PUT /api/courses/{courseId}`
-- (Add more endpoints as needed)
+All server-side logic is handled through RESTful API endpoints.
 
 ## Usage
 
@@ -70,11 +65,3 @@ All server-side logic is handled through RESTful API endpoints:
    - Login as a student.
    - Choose a course and view assignments.
    - Submit homework for automated grading.
-
-## Contributing
-
-If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
